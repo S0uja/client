@@ -1,0 +1,51 @@
+{
+  "name": "client",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@egjs/react-flicking": "^4.11.2",
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/lab": "^5.0.0-alpha.166",
+    "@mui/material": "^5.15.10",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.17",
+    "@mui/x-charts": "^7.2.0",
+    "@pbe/react-yandex-maps": "^1.2.5",
+    "@reduxjs/toolkit": "^2.2.1",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
+    "jwt-decode": "^4.0.0",
+    "process": "^0.11.10",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-id-swiper": "^4.0.0",
+    "react-input-mask": "^2.0.4",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-redux": "^9.1.0",
+    "react-router-dom": "^6.22.2",
+    "react-slick": "^0.30.2",
+    "react-sticky": "^6.0.3",
+    "redux": "^5.0.1",
+    "styled-components": "^6.1.8",
+    "swiper": "^11.0.6"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "vite": "^5.1.4"
+  }
+}
