@@ -5,7 +5,7 @@ const $host = axios.create({
 })
 
 const $authHost = axios.create({
-    baseURL: 'http://localhost:5000/'
+    baseURL: import.meta.env.VITE_API_URL
 })
 
 const authInterceptor = config => {
