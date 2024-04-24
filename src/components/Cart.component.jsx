@@ -113,7 +113,7 @@ const Cart = () => {
                         <ListItemAvatar>
                             <Avatar
                                 variant="rounded"
-                                src={import.meta.env.VITE_API_URL+(item.product.product_images[0]?.filename || 'defaultProductImage.jpg')}
+                                src={import.meta.env.VITE_API_STATIC_URL+(item.product.product_images[0]?.filename || 'defaultProductImage.jpg')}
                                 sx={{ width: 50, height: 50 }}
                             />
                         </ListItemAvatar>
@@ -170,7 +170,7 @@ const Cart = () => {
                             <ListItemAvatar>
                                 <Avatar
                                     variant="rounded"
-                                    src={import.meta.env.VITE_API_URL+(item.product.product_images[0]?.filename || 'defaultProductImage.jpg')}
+                                    src={import.meta.env.VITE_API_STATIC_URL+(item.product.product_images[0]?.filename || 'defaultProductImage.jpg')}
                                     sx={{ filter:'grayscale(100%)', width: 50, height: 50 }}
                                 />
                             </ListItemAvatar>

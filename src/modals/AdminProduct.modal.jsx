@@ -76,8 +76,8 @@ const ProductsModal = (props) => {
                 const images = []
                 for(const image of res.data.data[0].product_images){
                     images.push({
-                        id: import.meta.env.VITE_API_URL + image.filename,
-                        file: await ImageUrlToFile(import.meta.env.VITE_API_URL + image.filename)
+                        id: import.meta.env.VITE_API_STATIC_URL + image.filename,
+                        file: await ImageUrlToFile(import.meta.env.VITE_API_STATIC_URL + image.filename)
                     })
                 }
                 setFields({

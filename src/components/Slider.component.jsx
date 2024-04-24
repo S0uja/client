@@ -34,7 +34,7 @@ const Slider = (props) => {
                         backgroundSize: "cover",
                         backgroundRepeat: "no-repeat",
                         backgroundPosition: "center",
-                        backgroundImage: `url(${import.meta.env.VITE_API_URL+image.filename})`,
+                        backgroundImage: `url(${import.meta.env.VITE_API_STATIC_URL+image.filename})`,
                         transition:'none',
                     }}
                 ></Box>
@@ -49,7 +49,7 @@ const Slider = (props) => {
                     backgroundSize: "cover",
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "center",
-                    backgroundImage: `url(${import.meta.env.VITE_API_URL}defaultProductImage.jpg)`,
+                    backgroundImage: `url(${import.meta.env.VITE_API_STATIC_URL}defaultProductImage.jpg)`,
                     transition:'none',
                 }}
                 elevation={0}

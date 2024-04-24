@@ -164,7 +164,7 @@ const RateProductModal = () => {
                 <ListItemAvatar>
                     <Avatar
                         variant="rounded"
-                        src={import.meta.env.VITE_API_URL+(rates[0].product.product_images[0]?.filename || 'defaultProductImage.jpg')}
+                        src={import.meta.env.VITE_API_STATIC_URL+(rates[0].product.product_images[0]?.filename || 'defaultProductImage.jpg')}
                         sx={{ width: 145, height: 145 }}
                     />
                 </ListItemAvatar>

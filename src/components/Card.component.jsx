@@ -39,7 +39,7 @@ const CardComponent = (props) => {
             aspectRatio: '1 / 1',
             borderRadius:2,userSelect: 'none', userDrag: 'none', cursor:'pointer'
           }}
-          image={import.meta.env.VITE_API_URL+props.image}
+          image={import.meta.env.VITE_API_STATIC_URL+props.image}
           onClick={()=>{
             handleOpenProductModal(props.id)
           }}

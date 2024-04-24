@@ -58,7 +58,7 @@ const Categories = () => {
                                 <ListItemAvatar sx={{ minWidth: 40 }}>
                                     <Avatar 
                                         variant="rounded"
-                                        src={import.meta.env.VITE_API_URL+category.filename}
+                                        src={import.meta.env.VITE_API_STATIC_URL+category.filename}
                                         sx={{ width: 24, height: 24 }}
                                     />
                                 </ListItemAvatar>

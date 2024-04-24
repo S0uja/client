@@ -52,7 +52,7 @@ const CardCategoryComponent = (props) => {
               borderRadius:2,userSelect: 'none', userDrag: 'none'
             }}
             // image={import.meta.env.VITE_API_URL+props.image}
-            image={import.meta.env.VITE_API_URL+'defaultProductImage.jpg'}
+            image={import.meta.env.VITE_API_STATIC_URL+'defaultProductImage.jpg'}
           />
         </Card>
     )

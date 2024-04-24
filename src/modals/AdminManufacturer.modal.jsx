@@ -61,8 +61,8 @@ const ManufacturerModal = (props) => {
                 const images = []
                 if(res.data.data[0].filename){
                     images.push({
-                        id: import.meta.env.VITE_API_URL + res.data.data[0].filename,
-                        file: await ImageUrlToFile(import.meta.env.VITE_API_URL + res.data.data[0].filename)
+                        id: import.meta.env.VITE_API_STATIC_URL + res.data.data[0].filename,
+                        file: await ImageUrlToFile(import.meta.env.VITE_API_STATIC_URL + res.data.data[0].filename)
                     })
                 }
                 setFields({

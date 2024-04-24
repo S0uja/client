@@ -131,7 +131,7 @@ const OrderModal = () => {
                                     backgroundSize: "cover",
                                     backgroundRepeat: "no-repeat",
                                     backgroundPosition: "center",
-                                    backgroundImage: `url(${import.meta.env.VITE_API_URL+ (product.product.product_images[0]?.filename || 'defaultProductImage.jpg')})`,
+                                    backgroundImage: `url(${import.meta.env.VITE_API_STATIC_URL+ (product.product.product_images[0]?.filename || 'defaultProductImage.jpg')})`,
                                     transition:'none',
                                 }}
                               ></Box>

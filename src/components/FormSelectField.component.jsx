@@ -46,8 +46,8 @@ const FormSelectFieldComponent = (props) => {
                             option?.filename && (
                                 <img
                                     width={'25px'}
-                                    srcSet={import.meta.env.VITE_API_URL+option.filename}
-                                    src={import.meta.env.VITE_API_URL+option.filename}
+                                    srcSet={import.meta.env.VITE_API_STATIC_URL+option.filename}
+                                    src={import.meta.env.VITE_API_STATIC_URL+option.filename}
                                 />
                             )
                         }
