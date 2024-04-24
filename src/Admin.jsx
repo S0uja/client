@@ -8,6 +8,7 @@ import {setUserInfo} from "./store/user.store"
 import SnackbarModal from './modals/Snackbar.modal'
 import Grid from '@mui/material/Unstable_Grid2'
 import { Box } from '@mui/material'
+import { setSnackbarModal } from './store/modals.store'
 import { useNavigate } from 'react-router-dom';
 import AdminList from './components/AdminList.component'
 import PersonalComponent from './components/AdminPersonal.component'
@@ -29,14 +30,25 @@ const Admin = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         if(localStorage.getItem('token')) {
           const userResponse = await userCheck();
-          console.log(userResponse);
+
           if (!userResponse){
             navigate('/')
+            dispatch(setSnackbarModal({
+              modal:true,
+              severity:'error',
+              message:'Непредвиденная ошибка, попробуйте позже'
+            }))
           }
           else if(userResponse.data.data[0].status==='error'){
             navigate('/')
+            dispatch(setSnackbarModal({
+              modal:true,
+              severity:'error',
+              message:userResponse.data.message.join('\n')
+            }))
           }
           else if(userResponse.data.data[0].role==='admin'){
             dispatch(setUserInfo(userResponse.data.data[0]))
@@ -44,10 +56,24 @@ const Admin = () => {
           }
           else{
             navigate('/')
-            setLoading(false)
+            dispatch(setSnackbarModal({
+              modal:true,
+              severity:'error',
+              message:'Недостаточно прав'
+            }))
           }
+        } else{
+          navigate('/')
+          dispatch(setSnackbarModal({
+              modal:true,
+              severity:'error',
+              message:'Не авторизован'
+          }))
         }
-      } catch (error) {
+
+
+      }
+      catch (error) {
         console.error('Ошибка в запросах:', error);
       }
     }
@@ -61,7 +87,8 @@ const Admin = () => {
   return (
     <>
       {
-        loading?
+        loading
+        ?
           <Box sx={{height:'100px',display:'flex',alignItems:'center',justifyContent:'center'}}>Проверка доступа...</Box>
         :
           <ThemeProvider theme={theme}>

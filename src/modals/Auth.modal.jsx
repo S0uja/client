@@ -148,7 +148,7 @@ const AuthModal = () => {
 
                     getCart().then(res=>{
                         if(res.data.data[0]?.json) {
-                            SyncCart(res.data.data[0].json).then(cart=>{
+                            SyncCart(JSON.parse(res.data.data[0].json)).then(cart=>{
                                 dispatch(setCart(cart))
                             }).catch(console.error);
                         }

@@ -60,7 +60,6 @@ const Categories = () => {
                                         variant="rounded"
                                         src={import.meta.env.VITE_API_URL+category.filename}
                                         sx={{ width: 24, height: 24 }}
-                                    
                                     />
                                 </ListItemAvatar>
                                 <ListItemText primaryTypographyProps={font} primary={category.name}/>

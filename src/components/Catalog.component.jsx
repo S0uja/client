@@ -24,8 +24,6 @@ const Catalog = () => {
   const navigate = useNavigate()
   const Search = useSelector(state => state.products.search)
   const Category = useSelector(state => state.products.category)
-  
-
 
   //ХУК ОТВЕЧАЮЩИЙ ЗА ПОИСК ТОВАРОВ
   useEffect( () => {
@@ -45,7 +43,14 @@ const Catalog = () => {
       else{
         const res = await handleRequest(Page,Search,Category?.value||null,navigate)  
         window.scrollTo(0, 0)
-        if(res?.status==='error'){
+        if(!res){
+          dispatch(setSnackbarModal({
+            modal:true,
+            severity:'error',
+            message: 'Непредвиденная ошибка, попробуйте позже'
+          }))
+        }
+        else if(res?.status==='error'){
           dispatch(setSnackbarModal({
               modal:true,
               severity:'error',

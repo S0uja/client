@@ -2,7 +2,7 @@ import React from 'react'
 import {Box,Paper,Button,Typography,Avatar,Popover,List, ListItem , ListItemButton, ListItemIcon, ListItemText} from '@mui/material'
 import font from '../themes/font.theme'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-const logo = new URL('../assets/logo.svg', import.meta.url).href
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
 import { setAuthModal } from '../store/modals.store'
 import StringAvatar from '../utils/StringAvatar.util'
@@ -15,7 +15,9 @@ import {setCart} from '../store/cart.store'
 import { setOrderModal,setProfileModal } from '../store/modals.store';
 import ShortingFio from '../utils/ShortiongFio.util'
 
+
 const Header = () => {
+    const navigate = useNavigate()
     const [anchorEl, setAnchorEl] = React.useState(null)
     const [isOpen, setIsOpen] = React.useState(false)
     const id = open ? 'simple-popover' : undefined
@@ -41,6 +43,7 @@ const Header = () => {
         handleClosePopover()
         dispatch(setCart([]))
         dispatch(setUserInfo({}))
+        navigate('/')
         localStorage.removeItem('cart')
         localStorage.removeItem('token')
     }
@@ -55,9 +58,13 @@ const Header = () => {
         dispatch(setProfileModal(true))
     }
 
+    const handleHomeButton = () => {
+        navigate('/')
+    }
+
     return (
         <Paper id="header" elevation={0} sx={{my:'8px',alignItems:'center',justifyContent:'space-between',boxSizing:'border-box',p:2,display:'flex',width:'100%',borderRadius:2, height:60,backgroundColor:'#fff'}}>
-            <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+            <Box onClick={handleHomeButton} sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
                 {/* <img src={logo} style={{overflow:'hidden',height:'30px',borderRadius:1}} /> */}
                 <FastfoodIcon size='large' sx={{color:'rgb(64,64,64)'}}/>
                 <Typography sx={{...font,color:'rgb(64,64,64)',fontSize:'20px'}}>FoodExpress</Typography>

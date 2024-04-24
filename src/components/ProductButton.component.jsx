@@ -54,7 +54,7 @@ const ProductButton = (props) => {
     return (
         <>
         {
-            Boolean(Cart.filter(item => item.productId === props.id).length) ?
+            Cart.filter(item => item.productId === props.id).length ?
             <LoadingButton
               loading={loading}
               disableElevation

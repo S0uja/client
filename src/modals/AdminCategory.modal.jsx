@@ -265,7 +265,7 @@ const CategoryModal = (props) => {
                                 <FormSelectFieldComponent
                                     label={'Родительская категория'}
                                     options={props.categories}
-                                    onChange={(e) => handleChange('parentId',e.target.value)}
+                                    onChange={(value) => handleChange('parentId',value.id)}
                                     error={fieldsErrors.parentId}
                                     placeholder={'Без родительской категории'}
                                     value={fields.parentId}

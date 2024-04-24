@@ -137,16 +137,17 @@ const CartModal = () => {
               boxSizing:'border-box',
               scrollbarWidth:'thin',
               overflowY:'auto',
+              gap:2,
               overflowX:'hidden',
             }}
             component="nav"
           >
-          
+            <Box sx={{...font,fontSize:'20px'}}>Корзина</Box>
               {
                 CartAvailable.length > 0 ?
                   CartAvailable.map((item,i)=>{
                     return (
-                        <Box key={i} sx={{maxHeight:'50px',width:'100%',boxSizing:'border-box',flexGrow:1,display:'flex',gap:0.5,my:2,alignItems:'center'}}>
+                        <Box key={i} sx={{maxHeight:'50px',width:'100%',boxSizing:'border-box',flexGrow:1,display:'flex',gap:0.5,alignItems:'center'}}>
                             <ListItemAvatar>
                                 <Avatar
                                     variant="rounded"
