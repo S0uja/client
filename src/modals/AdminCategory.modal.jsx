@@ -66,14 +66,17 @@ const CategoryModal = (props) => {
                 }
                 setFields({
                     name:res.data.data[0].name,
-                    parentId:(res.data.data[0].parentId||''),
+                    parentId:res.data.data[0].parentId ?
+                        {id:parseInt(res.data.data[0].parentId),name:(props.categories.filter(item=>item.id==parseInt(res.data.data[0].parentId))[0]?.name)}
+                    :
+                        null,
                     images:images
                 })
                 setLoading(false)
             }
         })
 
-    },[CategoryModalStatus,dispatch,props.updateId])
+    },[CategoryModalStatus,dispatch,props.categories,props.updateId])
 
     const clearFields = () => {
         setFields({
@@ -139,7 +142,7 @@ const CategoryModal = (props) => {
 
         if(!valid){
             setLoading(true)
-            createCategory(fields.name,fields.parentId,fields.images[0].file).then((res)=>{
+            createCategory(fields.name,fields.parentId?.id || fields.parentId,fields.images[0].file).then((res)=>{
                 if(!res){
                     dispatch(setSnackbarModal({
                         modal:true,
@@ -178,7 +181,7 @@ const CategoryModal = (props) => {
 
         if(!valid){
             setLoading(true)
-            updateCategory(props.updateId,fields.name,fields.parentId,fields.images[0].file).then((res)=>{
+            updateCategory(props.updateId,fields.name,fields.parentId?.id || fields.parentId,fields.images[0].file).then((res)=>{
                 if(!res){
                     dispatch(setSnackbarModal({
                         modal:true,

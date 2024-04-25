@@ -36,8 +36,15 @@ const FormSelectFieldComponent = (props) => {
                         )
                     })
                 }
-                isOptionEqualToValue={(option, value) => option === value || option.label === value}
-                getOptionLabel={(option) => option.name || ''}
+                isOptionEqualToValue={(option, value) => {
+                    if (value === "") {
+                        return false;
+                    }
+                    return option.id === value || option.id === value.id;
+                }}
+                getOptionLabel={(option) => {
+                    return option.name || ""
+                }}
                 ListboxProps={{style:{maxHeight:'300px',backgroundColor:'#eeeeee'}}}
                 renderOption={(props, option) => (
                     <Box component="li" sx={{fontSize:'14px',display:'flex',gap:2,alignItems:'center' }} {...props}>

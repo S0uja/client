@@ -14,14 +14,14 @@ const columns = [
         minWidth: 15,
         align: 'center',
     },
-    {
-        id: 'parentId',
-        label: 'Родитель',
-        minWidth:150
-    },
     { 
         id: 'name',
         label: 'Название',
+        minWidth:150
+    },
+    {
+        id: 'parentId',
+        label: 'Родитель',
         minWidth:150
     },
 ]
