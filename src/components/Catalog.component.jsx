@@ -34,6 +34,7 @@ const Catalog = () => {
       setLoading(true)
 
       if(!Search && !Category?.value){
+        await handleRequest(null,null,null,navigate) 
         const mainPageResponse = await getMainPage()
         if(mainPageResponse){
           dispatch(setCollections(mainPageResponse.data.data.list))

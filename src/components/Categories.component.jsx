@@ -54,12 +54,12 @@ const Categories = () => {
 
                     return (
                         <div key={index}>
-                            <ListItemButton key={index} sx={{borderRadius:2,p:1}} onClick={() => handleOpen(category.id)}>
+                            <ListItemButton key={index} sx={{display:'flex',borderRadius:2,p:1}} onClick={() => handleOpen(category.id)}>
                                 <ListItemAvatar sx={{ minWidth: 40 }}>
                                     <Avatar 
                                         variant="rounded"
                                         src={import.meta.env.VITE_API_STATIC_URL+category.filename}
-                                        sx={{ width: 24, height: 24 }}
+                                        sx={{ width: 30, height: 30 }}
                                     />
                                 </ListItemAvatar>
                                 <ListItemText primaryTypographyProps={font} primary={category.name}/>

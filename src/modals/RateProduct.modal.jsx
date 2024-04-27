@@ -115,7 +115,7 @@ const RateProductModal = () => {
     >
       <Box sx={{
         ...modal,
-        height:'200px',
+        height:'auto',
         maxWidth:'600px',
         display:'flex',
         justifyContent:'space-between',
@@ -152,23 +152,32 @@ const RateProductModal = () => {
             Все товары оценены, спасибо!
           </Box>
           :
-          <Box sx={{flexGrow:1}}>
+          <Box sx={{width:'100%'}}>
             <MobileStepper
               variant="dots"
               steps={rates.length}
               position="static"
               activeStep={activeStep}
-              sx={{ flexGrow: 1,display:'flex',justifyContent:'center' }}
+              sx={{ width:'100%',display:'flex',justifyContent:'center' }}
             />
-              <Box sx={{width:'100%',boxSizing:'border-box',flexGrow:1,display:'flex',gap:2,alignItems:'center'}}>
-                <ListItemAvatar>
+              <Box sx={{width:'100%',boxSizing:'border-box',display:'flex',gap:2,alignItems:'center',flexDirection:{
+                  es: 'column',
+                  xs: 'column',
+                  s: 'column',
+                  sm: 'row',
+                  md: 'row',
+                  lg: 'row',
+                  xl: 'row',
+                  xxl: 'row',
+                }}}>
+                <ListItemAvatar sx={{width:{es: '100%',xs:'100%',s:'100%',sm: 145}}}>
                     <Avatar
                         variant="rounded"
                         src={import.meta.env.VITE_API_STATIC_URL+(rates[0].product.product_images[0]?.filename || 'defaultProductImage.jpg')}
-                        sx={{ width: 145, height: 145 }}
+                        sx={{ margin:'0 auto',width:{es: '100%',xs:'100%',s:'100%',sm: 145}, height: 145 }}
                     />
                 </ListItemAvatar>
-                <Box sx={{display:'flex',gap:2,flexDirection:'column',flexGrow:1,justifyContent:'center'}}>
+                <Box sx={{width:'100%',display:'flex',gap:2,flexDirection:'column',justifyContent:'center'}}>
                     <FormTextFieldComponent 
                       error={{status:false}}
                       type={'text'}
@@ -180,7 +189,16 @@ const RateProductModal = () => {
                       placeholder={'Расскажите ваши впечатления'}
                     />
 
-                    <Box sx={{...font,display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                    <Box sx={{...font,gap:2,display:'flex',alignItems:'center',justifyContent:'space-between',flexDirection:{
+                      es: 'column',
+                      xs: 'column',
+                      s: 'row',
+                      sm: 'row',
+                      md: 'row',
+                      lg: 'row',
+                      xl: 'row',
+                      xxl: 'row',
+                  }}}>
 
                       <Box
                         sx={{
@@ -211,7 +229,7 @@ const RateProductModal = () => {
                         color="success"
                         onClick={handleCreateReview}
                         size='large'
-                        sx={{...font,px:2,color:'#fff',fontWeight:750,borderRadius:2}}
+                        sx={{...font,px:2,color:'#fff',fontWeight:750,borderRadius:2,width:{es: '100%',xs: '100%',s: 'auto',}}}
                         startIcon={<CheckIcon size="small"/>}
                     >   
                         Отправить

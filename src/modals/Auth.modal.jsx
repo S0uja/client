@@ -7,12 +7,13 @@ const activeTabSx = { height:'100%',p:0,boxSizing:'border-box',display:'flex',fl
 import { useDispatch, useSelector } from 'react-redux'
 import { setAuthModal, setSnackbarModal } from '../store/modals.store'
 import { userLogin, userRegistration } from '../http/User.http'
-import {setUserInfo} from "../store/user.store"
+import {setUserInfo,setOrders} from "../store/user.store"
 import CloseIcon from '@mui/icons-material/Close'
 import SyncCart from '../utils/SyncCart.util'
 import { setCart } from '../store/cart.store'
 import FormTextFieldComponent from '../components/FormTextField.component'
 import { getCart } from '../http/Cart.http'
+import { getAllOrders } from '../http/Orders.http'
 
 const AuthModal = () => {
     const [singIn,setSingIn] = useState({
@@ -152,7 +153,14 @@ const AuthModal = () => {
                                 dispatch(setCart(cart))
                             }).catch(console.error);
                         }
-                    }).catch(console.error);
+                    }).catch(console.error)
+
+                    getAllOrders().then(res=>{
+                        if(res){
+                            dispatch(setOrders(res.data.data))
+                        }
+                    }).catch(console.error)
+
                 }
             }).catch(console.error);
         }
