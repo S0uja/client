@@ -13,6 +13,7 @@ import CardCategory from './CardCategory.component'
 import { getMainPage } from '../http/Products.http'
 import ChipBar from './ChipBar.component'
 import { setSnackbarModal } from '../store/modals.store'
+import CollapseComponent from './Collapse.component'
 
 const Catalog = () => {
   const dispatch = useDispatch()
@@ -185,7 +186,7 @@ const Catalog = () => {
             <Box sx={{display:'flex',pl:2,mb:2,gap:2,flexWrap:'wrap'}}>
               <Typography sx={{...font,fontSize:'24px',width:'100%'}}>Категории</Typography>
               {
-                Collections[0].cards.map((card,index1) => (
+                Collections[0].cards.slice(0,12).map((card,index1) => (
                   <CardCategory
                     key={index1}
                     id={card.id}
@@ -193,6 +194,21 @@ const Catalog = () => {
                     image={card.filename || 'defaultProductImage.jpg'}
                   />
                 ))
+              }
+              {
+                Collections[0].cards.length>12 && (
+                  <CollapseComponent 
+                    items={Collections[0].cards.slice(12,Collections[0].cards.length).map((card,index2) => (
+                      <CardCategory
+                        key={index2}
+                        id={card.id}
+                        name={card.name}
+                        image={card.filename || 'defaultProductImage.jpg'}
+                      />
+                    ))}
+                    sx={{display:'flex',mb:2,gap:2,flexWrap:'wrap'}}
+                  />
+                )
               }
             </Box>
             <Box sx={{display:'flex',pl:2,mb:2,gap:2,flexWrap:'wrap'}}>
