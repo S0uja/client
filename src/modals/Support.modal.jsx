@@ -12,7 +12,6 @@ let SOCKET
 const SupportModal = () => {
     const dispatch = useDispatch()
     const SupportModalStatus = useSelector(state => state.modals.supportModal)
-    const UserInfo = useSelector(state => state.user.userInfo)
     const [room,setRoom] = useState('')
     const [message,setMessage] = useState('')
     const [messages,setMessages] = useState([])
@@ -27,7 +26,7 @@ const SupportModal = () => {
                 setRoom(localStorage.getItem('support_room'))
             }
             else{
-                SOCKET = new WebSocket(`ws://localhost:5001/support/user`)
+                SOCKET = new WebSocket(`ws://${import.meta.env.VITE_API_URL}/api/support/user`)
             }
             
 
