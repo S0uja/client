@@ -23,7 +23,7 @@ const SupportModal = () => {
         if(SupportModalStatus===true){
 
             if(localStorage.getItem('support_room')){
-                SOCKET = new WebSocket(`ws://localhost:5001/support/user?room=${localStorage.getItem('support_room')}`)
+                SOCKET = new WebSocket(`ws://${import.meta.env.VITE_API_URL}/api/support/user?room=${localStorage.getItem('support_room')}`)
                 setRoom(localStorage.getItem('support_room'))
             }
             else{
