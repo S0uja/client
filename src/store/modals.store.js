@@ -13,6 +13,7 @@ export const modals = createSlice({
     profileModal:false,
     confirmModal:false,
     rateModal:false,
+    supportModal:true,
 
     adminCategoryModal:false,
     adminProductModal:false,
@@ -23,6 +24,9 @@ export const modals = createSlice({
     adminOrderStatusModal:false,
   },
   reducers: {
+    setSupportModal:(state, action) => {
+      state.supportModal = action.payload
+    },
     setRateModal:(state, action) => {
       state.rateModal = action.payload
     },
@@ -73,6 +77,6 @@ export const modals = createSlice({
   },
 })
 
-export const { setRateModal,setAdminOrderStatusModal,setAdminOrderModal,setAdminCollectionModal, setAdminCategoryModal, setConfirmModal, setAdminProductModal, setAdminManufacturerModal, setAdminPersonalModal, setProductModal, setAuthModal, setSnackbarModal, setCartModal, setOrderModal, setProfileModal } = modals.actions
+export const { setSupportModal,setRateModal,setAdminOrderStatusModal,setAdminOrderModal,setAdminCollectionModal, setAdminCategoryModal, setConfirmModal, setAdminProductModal, setAdminManufacturerModal, setAdminPersonalModal, setProductModal, setAuthModal, setSnackbarModal, setCartModal, setOrderModal, setProfileModal } = modals.actions
 
 export default modals.reducer

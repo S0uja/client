@@ -20,6 +20,7 @@ import UsersComponent from './components/AdminUsers.component'
 import OrdersComponent from './components/AdminOrders.component'
 import OrderStatusesComponent from './components/AdminOrderStatuses.component'
 import DashboardComponent from './components/AdminDashboard.component'
+import SupportComponent from './components/AdminSupport.component'
 
 const Admin = () => {
   const [loading,setLoading] = useState(true)
@@ -113,6 +114,9 @@ const Admin = () => {
                 es={12} xs={12} sm={12} md={8.5} lg={9} xl={9}
                 sx={{width:'100%',display:{es:'block  ',xs:'block',sm:'block',md:'block',lg:'block',xl:'block'}}}
               >
+                {
+                  tab==='support' && <SupportComponent/>
+                }
                 {
                   tab==='dashboard' && <DashboardComponent/>
                 }

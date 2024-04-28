@@ -4,7 +4,7 @@ import font from '../themes/font.theme'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { setAuthModal } from '../store/modals.store'
+import { setAuthModal,setSupportModal } from '../store/modals.store'
 import StringAvatar from '../utils/StringAvatar.util'
 import PersonIcon from '@mui/icons-material/Person'
 import LogoutIcon from '@mui/icons-material/Logout'
@@ -12,8 +12,10 @@ import CreditScoreIcon from '@mui/icons-material/CreditScore'
 import {setUserInfo} from '../store/user.store'
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import {setCart} from '../store/cart.store'
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import { setOrderModal,setProfileModal } from '../store/modals.store';
 import ShortingFio from '../utils/ShortiongFio.util'
+import SupportAgentIcon from '@mui/icons-material/SupportAgent';
 
 
 const Header = () => {
@@ -57,9 +59,17 @@ const Header = () => {
         setIsOpen(false)
         dispatch(setProfileModal(true))
     }
+    
+    const handleOpenAdminPanel = () => {
+        navigate('/admin')
+    }
 
     const handleHomeButton = () => {
         navigate('/')
+    }
+
+    const handleOpenSupport = () => {
+        dispatch(setSupportModal(true))
     }
 
     return (
@@ -111,6 +121,26 @@ const Header = () => {
                                         <CreditScoreIcon sx={{...font,fontSize:'18px'}} />
                                     </ListItemIcon>
                                     <ListItemText primaryTypographyProps={{...font}} primary="Заказы" sx={font}/>
+                                </ListItemButton>
+                            </ListItem>
+                            {
+                                UserInfo?.role!='user' && (
+                                    <ListItem disablePadding>
+                                        <ListItemButton sx={{borderRadius:2}} onClick={handleOpenAdminPanel}>
+                                            <ListItemIcon>
+                                                <AdminPanelSettingsIcon sx={{...font,fontSize:'18px'}} />
+                                            </ListItemIcon>
+                                            <ListItemText primaryTypographyProps={{...font}} primary="Админка" sx={font}/>
+                                        </ListItemButton>
+                                    </ListItem>
+                                )
+                            }
+                            <ListItem disablePadding>
+                                <ListItemButton sx={{borderRadius:2}} onClick={handleOpenSupport}>
+                                    <ListItemIcon>
+                                        <SupportAgentIcon sx={{...font,fontSize:'18px'}} />
+                                    </ListItemIcon>
+                                    <ListItemText primaryTypographyProps={{...font}} primary="Поддержка" sx={font}/>
                                 </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>

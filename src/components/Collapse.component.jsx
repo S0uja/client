@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {useState,forwardRef} from 'react';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Fade  from '@mui/material/Fade';
@@ -9,18 +9,13 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import font from '../themes/font.theme'
 
 const CollapseComponent = (props) => {
-    const [checked,setChecked] = useState(false)
-
-    const handleChange = () => {
-        setChecked(!checked)
-    };
 
     return (
         <Box sx={{width:'100%',height:'auto',boxSizing:'border-box'}}>
             <Box sx={{ ...props.sx,mb:0,boxSizing:'border-box'}}>
                 {props.items.map((item,i)=>{
                     return (
-                        <Fade  key={i} in={checked} unmountOnExit>
+                        <Fade  key={i} in={props.show} unmountOnExit>
                             <Box sx={{flexBasis: {
                                 es:'calc(50% - 16px)',
                                 xs:'calc(33.33% - 16px)',
@@ -37,24 +32,29 @@ const CollapseComponent = (props) => {
                         </Fade>
                     )
                 })}
-                <Fade in={checked} unmountOnExit><Box sx={{mt:-2,height:'16px',width:'100%'}}></Box></Fade>
+                <Fade in={props.show} unmountOnExit><Box sx={{mt:-2,height:'16px',width:'100%'}}></Box></Fade>
             </Box>
             <FormControlLabel
                 sx={{width:'100%',heigth:'auto'}}
+                onClick={props.handleShow}
                 control={
-                    <Button sx={{...font,borderRadius:2,width:'100%'}} onClick={handleChange}>
-                        {
-                            checked?
-                                'Скрыть'
-                            :
-                                'Показать больше'
-                        }
-                        {
-                            checked?
-                                <KeyboardArrowUpIcon/>
-                            :
-                                <KeyboardArrowDownIcon/>
-                        }
+                    <Button sx={{...font,borderRadius:2,width:'100%',alignItems:'center',justifyContent:'center'}}>
+                        <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                            {
+                                props.show?
+                                    'Скрыть'
+                                :
+                                    'Показать больше'
+                            }
+                        </Box>
+                        <Box sx={{display:'flex',justifyContent:'center',alignItems:'center'}}>
+                            {
+                                props.show?
+                                    <KeyboardArrowUpIcon/>
+                                :
+                                    <KeyboardArrowDownIcon/>
+                            }
+                        </Box>
                     </Button>
                 }
             />

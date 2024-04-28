@@ -251,29 +251,30 @@ const ProfileModal = (props) => {
             </IconButton>
 
             <Box sx={{width:'100%',minWidth:'300px',p:3,boxSizing:'border-box'}}>
+              
               <Box sx={{mb:2,p:2,boxSizing:'border-box',borderRadius:2,display:'flex',alignItems:'center',justifyContent:'start',flexGrow:1,flexDirection:"column",backgroundColor:StringToColor(UserInfo?.fio)}}>
                 <Typography sx={{...font,mx:2,color:'#fff',justifyContent:'center',alignItems:'center',display:'flex',fontSize:{es:'14px',xs:'14px',sm:'20px',md:'20px',lg:'20px',xl:'20px'},height:{es:'50px',xs:'50px',sm:'50px',md:'100px',lg:'100px',xl:'100px'}}}>
                   {UserInfo?.fio}
                 </Typography>
               </Box>
 
-              <Box sx={{display:'flex',gap:2,overflow:'auto',width:'100%',overflowX:'auto',flexDirection:{es:'row',xs:'row',sm:'row',md:'column',lg:'column',xl:'column'}}}>
-                <Box variant="text" onClick={()=>setTab(1)} sx={{...font,display:'flex',alignItems:'center',textTransform:'none',justifyContent:'start',borderRadius:0,p:1,px:2,fontSize:{es:'10px',xs:'11px',sm:'12px',md:'14px',lg:'14px',xl:'16px'},borderBottom:(tab===1?'2px solid #404040':'2px solid rgba(0,0,0,0)')}}>
+              <Box sx={{display:'flex',scrollbarWidth:'none',gap:2,overflow:'auto',overflowX:'auto',flexDirection:{es:'row',xs:'row',sm:'row',md:'column',lg:'column',xl:'column'}}}>
+                <Button variant="text" onClick={()=>setTab(1)} sx={{...font,fontSize:'16px',minWidth:'auto',boxSizing:'content-box',whiteSpace: "nowrap",width:'100%',cursor:'pointer',display:'flex',alignItems:'center',textTransform:'none',justifyContent:'start',borderRadius:0}}>
                   Личные данные
-                </Box>
-                <Box variant="text" onClick={()=>setTab(2)} sx={{...font,display:'flex',alignItems:'center',textTransform:'none',justifyContent:'start',borderRadius:0,p:1,px:2,fontSize:{es:'10px',xs:'11px',sm:'12px',md:'14px',lg:'14px',xl:'16px'},borderBottom:(tab===2?'2px solid #404040':'2px solid rgba(0,0,0,0)')}}>
+                </Button>
+                <Button variant="text" onClick={()=>setTab(2)} sx={{...font,fontSize:'16px',minWidth:'auto',boxSizing:'content-box',whiteSpace: "nowrap",width:'100%',cursor:'pointer',display:'flex',alignItems:'center',textTransform:'none',justifyContent:'start',borderRadius:0}}>
                   Адреса
-                </Box>
-                <Box variant="text" onClick={()=>setTab(3)} sx={{...font,display:'flex',alignItems:'center',textTransform:'none',justifyContent:'start',borderRadius:0,p:1,px:2,fontSize:{es:'10px',xs:'11px',sm:'12px',md:'14px',lg:'14px',xl:'16px'},borderBottom:(tab===3?'2px solid #404040':'2px solid rgba(0,0,0,0)')}}>
+                </Button>
+                <Button variant="text" onClick={()=>setTab(3)} sx={{...font,fontSize:'16px',minWidth:'auto',boxSizing:'content-box',whiteSpace: "nowrap",width:'100%',cursor:'pointer',display:'flex',alignItems:'center',textTransform:'none',justifyContent:'start',borderRadius:0}}>
                   Безопасность
-                </Box>
-                <Box variant="text" onClick={handleOut} sx={{...font,display:'flex',alignItems:'center',color:'#c62828',textTransform:'none',justifyContent:'start',borderRadius:0,p:1,px:2,fontSize:{es:'10px',xs:'11px',sm:'12px',md:'14px',lg:'14px',xl:'16px'}}}>
+                </Button>
+                <Button variant="text" onClick={handleOut} sx={{...font,fontSize:'16px',minWidth:'auto',boxSizing:'content-box',whiteSpace: "nowrap",cursor:'pointer',display:'flex',alignItems:'center',color:'#c62828',textTransform:'none',justifyContent:'start',borderRadius:0}}>
                   Выйти 
-                </Box>
+                </Button>
               </Box>
             </Box>
 
-            <Box sx={{boxSizing:'border-box',flexGrow:2,p:2,width:'100%',height:'100%',display:(tab===1?'flex':'none'),flexDirection:'column',justifyContent:'start'}}>
+            <Box sx={{boxSizing:'border-box',flexGrow:2,p:3,width:'100%',height:'100%',display:(tab===1?'flex':'none'),flexDirection:'column',justifyContent:'start'}}>
               <Typography sx={{...font,fontSize:'22px',mb:3,textAlign:'center',display:{es:'none',xs:'none',sm:'none',md:'block',lg:'block',xl:'block'}}}>Личные данные</Typography>
               
               <TextField 
@@ -316,13 +317,13 @@ const ProfileModal = (props) => {
                 helperText={updateInfoErrors.birthdate.message}
               />
 
-              <Box sx={{display:'flex',my:'10px',gap:2,justifyContent:'center'}}>
-                <LoadingButton loading={loading} disableElevation sx={{...font,color:"",borderRadius:2}} onClick={updateUserInfo} variant="contained" color="success">Сохранить</LoadingButton>
-                <LoadingButton disableElevation sx={{...font,color:"",borderRadius:2}} onClick={handleResetUserInfo} variant="contained" color="error">Сбросить</LoadingButton>
+              <Box sx={{display:'flex',width:'100%',m:'0 auto',my:'10px',maxWidth:'350px',justifyContent:'center',gap:2,alignItems:'center'}}>
+                <LoadingButton size={'large'} loading={loading} disableElevation sx={{...font,flexGrow:1,color:"",borderRadius:2}} onClick={updateUserInfo} variant="contained" color="success">Сохранить</LoadingButton>
+                <LoadingButton size={'large'} disableElevation sx={{...font,flexGrow:1,color:"",borderRadius:2}} onClick={handleResetUserInfo} variant="contained" color="error">Сбросить</LoadingButton>
               </Box>
             </Box>
 
-            <Box sx={{boxSizing:'border-box',display:(tab===2?'flex':'none'),p:2,width:'100%',height:'100%',flexDirection:'column',justifyContent:'start'}}>
+            <Box sx={{boxSizing:'border-box',display:(tab===2?'flex':'none'),p:3,width:'100%',height:'100%',flexDirection:'column',justifyContent:'start'}}>
               <Typography sx={{...font,fontSize:'22px',mb:3,textAlign:'center',display:{es:'none',xs:'none',sm:'none',md:'block',lg:'block',xl:'block'}}}>Сохраненные адреса</Typography>
               <Box sx={{overflow:'auto',maxHeight:'100%',scrollbarWidth:'none'}}>
                 {
@@ -357,7 +358,7 @@ const ProfileModal = (props) => {
               </Box>
             </Box>
 
-            <Box sx={{boxSizing:'border-box',display:(tab===3?'flex':'none'),p:2,width:'100%',height:'100%',flexDirection:'column',justifyContent:'start'}}>
+            <Box sx={{boxSizing:'border-box',display:(tab===3?'flex':'none'),p:3,width:'100%',height:'100%',flexDirection:'column',justifyContent:'start'}}>
               <Typography sx={{...font,fontSize:'22px',mb:3,textAlign:'center',display:{es:'none',xs:'none',sm:'none',md:'block',lg:'block',xl:'block'}}}>Безопасность</Typography>
               <TextField 
                 type="password" 

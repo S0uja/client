@@ -22,6 +22,7 @@ const Catalog = () => {
   const [loading, setLoading] = useState(true)
   const TotalPages = useSelector(state => state.products.totalPages)
   const Page = useSelector(state => state.products.page)
+  const [moreCategories,setMoreCategories] = useState(false)
   const navigate = useNavigate()
   const Search = useSelector(state => state.products.search)
   const Category = useSelector(state => state.products.category)
@@ -34,7 +35,7 @@ const Catalog = () => {
       setLoading(true)
 
       if(!Search && !Category?.value){
-        await handleRequest(null,null,null,navigate) 
+        await handleRequest(Page,Search,Category?.value||null,navigate) 
         const mainPageResponse = await getMainPage()
         if(mainPageResponse){
           dispatch(setCollections(mainPageResponse.data.data.list))
@@ -199,6 +200,8 @@ const Catalog = () => {
               {
                 Collections[0].cards.length>12 && (
                   <CollapseComponent 
+                    show={moreCategories}
+                    handleShow={()=>setMoreCategories(!moreCategories)}
                     items={Collections[0].cards.slice(12,Collections[0].cards.length).map((card,index2) => (
                       <CardCategory
                         key={index2}

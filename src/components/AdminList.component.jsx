@@ -77,7 +77,7 @@ const AdminListComponent = (props) => {
                 <ListItemText primaryTypographyProps={font} primary={'Почта'}/>
             </ListItemButton>
 
-            <ListItemButton sx={{borderRadius:2,minWidth:'170px'}}>
+            <ListItemButton sx={{borderRadius:2,minWidth:'170px'}} onClick={()=>props.onChange('support')}>
                 <ListItemAvatar sx={{ minWidth: 40 }}>
                     <Badge badgeContent={4} color="info" max={99}>
                         <Avatar 
