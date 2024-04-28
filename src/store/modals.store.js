@@ -13,7 +13,7 @@ export const modals = createSlice({
     profileModal:false,
     confirmModal:false,
     rateModal:false,
-    supportModal:true,
+    supportModal:false,
 
     adminCategoryModal:false,
     adminProductModal:false,
