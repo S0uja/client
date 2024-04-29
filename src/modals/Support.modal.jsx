@@ -22,11 +22,11 @@ const SupportModal = () => {
         if(SupportModalStatus===true){
 
             if(localStorage.getItem('support_room')){
-                SOCKET = new WebSocket(`ws://${import.meta.env.VITE_API_WS_SUPPORT}user?room=${localStorage.getItem('support_room')}`)
+                SOCKET = new WebSocket(`${import.meta.env.VITE_API_WS_SUPPORT}user?room=${localStorage.getItem('support_room')}`)
                 setRoom(localStorage.getItem('support_room'))
             }
             else{
-                SOCKET = new WebSocket(`ws://${import.meta.env.VITE_API_WS_SUPPORT}user`)
+                SOCKET = new WebSocket(`${import.meta.env.VITE_API_WS_SUPPORT}user`)
             }
             
 

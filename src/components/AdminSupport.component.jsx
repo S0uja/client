@@ -17,7 +17,7 @@ const AdminSupportComponent = () => {
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        SOCKET = new WebSocket(`ws://${import.meta.env.VITE_API_WS_SUPPORT}admin?room=${room}&id=${UserInfo.id}`)
+        SOCKET = new WebSocket(`${import.meta.env.VITE_API_WS_SUPPORT}admin?room=${room}&id=${UserInfo.id}`)
 
         SOCKET.onopen = () => {
             setLoading(false)
