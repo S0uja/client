@@ -1,21 +1,18 @@
-import axios from "axios";
+import axios from 'axios'
 
 const $host = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+	baseURL: import.meta.env.VITE_API_URL,
 })
 
 const $authHost = axios.create({
-    baseURL: import.meta.env.VITE_API_URL
+	baseURL: import.meta.env.VITE_API_URL,
 })
 
 const authInterceptor = config => {
-    config.headers.authorization = `JWT ${localStorage.getItem('token')}`
-    return config
+	config.headers.authorization = `JWT ${localStorage.getItem('token')}`
+	return config
 }
 
 $authHost.interceptors.request.use(authInterceptor)
 
-export {
-    $host,
-    $authHost
-}
+export { $authHost, $host }

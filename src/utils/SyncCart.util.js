@@ -1,23 +1,28 @@
 import { getOneProduct } from '../http/Products.http'
 
-const SyncCart = async (localCart) => {
-    const syncCart = []
-    
-    if(!localCart.length) return []
+const SyncCart = async localCart => {
+	const syncCart = []
 
-    if(typeof localCart === 'string') localCart=JSON.parse(localCart)
- 
-    for(const item of localCart){
-      let syncProduct = await getOneProduct(item.productId)
+	if (!localCart?.length) return []
 
-      if(!syncProduct.data) continue
-      if(!syncProduct.data.data.length) continue
-      
-      syncProduct = syncProduct.data.data[0]
-      syncCart.push({productId:item.productId,count:item.count,price:syncProduct.price*item.count,product:syncProduct})
-    }
+	if (typeof localCart === 'string') localCart = JSON.parse(localCart)
 
-    return syncCart
+	for (const item of localCart) {
+		let syncProduct = await getOneProduct(item.productId)
+
+		if (!syncProduct || !syncProduct.data || !syncProduct.data.data.length)
+			continue
+
+		syncProduct = syncProduct.data.data[0]
+		syncCart.push({
+			productId: item.productId,
+			count: item.count,
+			price: syncProduct.price * item.count,
+			product: syncProduct,
+		})
+	}
+
+	return syncCart
 }
 
 export default SyncCart

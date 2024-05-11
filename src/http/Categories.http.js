@@ -1,4 +1,4 @@
-import {$authHost, $host} from "./index.http";
+import { $host } from "./index.http"
 
 export const getAllCategories = async () => {
     try {
