@@ -86,7 +86,7 @@ const ProductModal = props => {
 								}}
 							>
 								<Typography
-									sx={{ ...font, fontSize: '28px', wordBreak: 'break-all' }}
+									sx={{ ...font, fontSize: '28px', wordBreak: 'break-word' }}
 								>
 									{ProductInfo.name}
 								</Typography>
@@ -125,7 +125,7 @@ const ProductModal = props => {
 										<Typography sx={{ ...font, color: 'rgb(120, 120, 120)' }}>
 											Состав
 										</Typography>
-										<Typography sx={{ ...font, wordBreak: 'break-all' }}>
+										<Typography sx={{ ...font, wordBreak: 'break-word' }}>
 											{ProductInfo.structure}
 										</Typography>
 									</>
@@ -136,7 +136,7 @@ const ProductModal = props => {
 										<Typography sx={{ ...font, color: 'rgb(120, 120, 120)' }}>
 											Описание
 										</Typography>
-										<Typography sx={{ ...font, wordBreak: 'break-all' }}>
+										<Typography sx={{ ...font, wordBreak: 'break-word' }}>
 											{ProductInfo.description}
 										</Typography>
 									</>
@@ -148,7 +148,7 @@ const ProductModal = props => {
 										>
 											Срок хранения
 										</Typography>
-										<Typography sx={{ ...font, wordBreak: 'break-all' }}>
+										<Typography sx={{ ...font, wordBreak: 'break-word' }}>
 											{ProductInfo.expirationdate}
 										</Typography>
 									</>
@@ -160,7 +160,7 @@ const ProductModal = props => {
 										>
 											Условия хранения
 										</Typography>
-										<Typography sx={{ ...font, wordBreak: 'break-all' }}>
+										<Typography sx={{ ...font, wordBreak: 'break-word' }}>
 											{ProductInfo.storageconditions}
 										</Typography>
 									</>
@@ -171,7 +171,7 @@ const ProductModal = props => {
 								>
 									Производитель
 								</Typography>
-								<Typography sx={{ ...font, wordBreak: 'break-all' }}>
+								<Typography sx={{ ...font, wordBreak: 'break-word' }}>
 									{ProductInfo.manufacturer?.name || 'Сторонний производитель'}
 								</Typography>
 							</Box>

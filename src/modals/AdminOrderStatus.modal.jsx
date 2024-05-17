@@ -224,7 +224,7 @@ const OrderStatusModal = props => {
 					flexDirection: 'column',
 				}}
 			>
-				<CloseButtonComponent handleClick={CloseButtonComponent} />
+				<CloseButtonComponent handleClick={handleClose} />
 
 				{loading ? (
 					<CircularLoadingComponent />

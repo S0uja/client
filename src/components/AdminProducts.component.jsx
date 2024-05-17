@@ -75,7 +75,6 @@ const ProductsComponent = () => {
 				} else if (res.status === 'success') {
 					setData(res.data.data)
 				} else {
-					console.log(res.data.data)
 					dispatch(
 						setSnackbarModal({
 							modal: true,

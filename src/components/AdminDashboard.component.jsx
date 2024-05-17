@@ -18,33 +18,8 @@ import DashboardCardComponent from './AdminDashboardCard.component'
 import Table from './Table.component'
 const columns = [
 	{
-		id: 'ip',
-		label: 'IP',
-		minWidth: 90,
-	},
-	{
-		id: 'user_id',
-		label: 'Идентификатор пользователя',
-		minWidth: 120,
-	},
-	{
-		id: 'role',
-		label: 'Роль пользователя',
-		minWidth: 120,
-	},
-	{
-		id: 'date',
-		label: 'Временная метка',
-		minWidth: 120,
-	},
-	{
-		id: 'method',
-		label: 'Метод',
-		minWidth: 70,
-	},
-	{
-		id: 'path',
-		label: 'Адрес',
+		id: 'log',
+		label: 'Логи',
 		minWidth: 90,
 	},
 ]

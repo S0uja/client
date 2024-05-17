@@ -1,6 +1,9 @@
 import { Backdrop, Box, Button, Chip, Modal, Typography } from '@mui/material'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CloseButtonComponent from '../components/CloseButton.component'
+import NotFoundDataComponent from '../components/NotFoundData.component'
+import { getAllOrders } from '../http/Orders.http'
 import { getOneProduct } from '../http/Products.http'
 import {
 	setOrderModal,
@@ -8,6 +11,7 @@ import {
 	setRateModal,
 } from '../store/modals.store'
 import { setProduct } from '../store/products.store'
+import { setOrders } from '../store/user.store'
 import font from '../themes/font.theme'
 import modal from '../themes/modal.theme'
 import AddLeadingZeros from '../utils/AddLeadingZeros.util'
@@ -15,9 +19,18 @@ import FormatDate from '../utils/FormatDate.util'
 import GetStatusColor from '../utils/GetStatusColor.util'
 
 const OrderModal = () => {
+	const [loading, setLoading] = useState(true)
+	const [update, setUpdate] = useState(false)
 	const dispatch = useDispatch()
 	const Orders = useSelector(state => state.user.orders)
 	const OrderModalStatus = useSelector(state => state.modals.orderModal)
+
+	useEffect(() => {
+		getAllOrders().then(res => {
+			dispatch(setOrders(res.data.data))
+			setLoading(false)
+		})
+	}, [loading])
 
 	const openRateProductModal = () => {
 		dispatch(setRateModal(true))
@@ -51,13 +64,21 @@ const OrderModal = () => {
 				sx={{
 					...modal,
 					display: 'flex',
-					justifyContent: 'space-between',
+					flexDirection: 'column',
 					boxSizing: 'border-box',
-					p: 5,
+					alignItems: 'start',
+					p: 2,
+					gap: 2,
 				}}
 			>
+				<Box sx={{ ...font, fontSize: '20px' }}>Заказы</Box>
 				<CloseButtonComponent handleClick={handleCloseOrderModal} />
-				{Orders.length > 0 ? (
+				{loading ? (
+					<NotFoundDataComponent
+						label='Вы еще не делали заказов'
+						onClick={() => setLoading(true)}
+					/>
+				) : Orders?.length > 0 ? (
 					<Box
 						sx={{
 							width: '100%',
@@ -267,19 +288,10 @@ const OrderModal = () => {
 						})}
 					</Box>
 				) : (
-					<Box
-						sx={{
-							width: '100%',
-							fontSize: '20px',
-							color: 'rgb(120, 120, 120)',
-							height: '100%',
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
-						Вы еще не делали заказов
-					</Box>
+					<NotFoundDataComponent
+						label='Вы еще не делали заказов'
+						onClick={() => setLoading(true)}
+					/>
 				)}
 			</Box>
 		</Modal>

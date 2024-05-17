@@ -14,6 +14,7 @@ import OrdersComponent from './components/AdminOrders.component'
 import PersonalComponent from './components/AdminPersonal.component'
 import ProductsComponent from './components/AdminProducts.component'
 import ReportsComponent from './components/AdminReports.component'
+import AdminSQLComponent from './components/AdminSQL.components'
 import SupportComponent from './components/AdminSupport.component'
 import UsersComponent from './components/AdminUsers.component'
 import Header from './components/Header.component'
@@ -24,7 +25,7 @@ import { setUserInfo } from './store/user.store'
 import theme from './themes/colors.theme'
 
 const Admin = () => {
-	const [loading, setLoading] = useState(true)
+	const [loading, setLoading] = useState(false)
 	const [tab, setTab] = useState('dashboard')
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
@@ -193,6 +194,7 @@ const Admin = () => {
 							{tab === 'users' && <UsersComponent />}
 							{tab === 'orders' && <OrdersComponent />}
 							{tab === 'order_statuses' && <OrderStatusesComponent />}
+							{tab === 'sql' && <AdminSQLComponent />}
 						</Grid>
 					</Grid>
 				</ThemeProvider>

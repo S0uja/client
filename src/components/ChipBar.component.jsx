@@ -2,7 +2,14 @@ import { Box, Chip } from '@mui/material'
 
 const ChipBarComponent = props => {
 	return (
-		<Box sx={{ display: 'flex', gap: 1 }}>
+		<Box
+			sx={{
+				display: 'flex',
+				gap: 1,
+				flexGrow: 1,
+				flexWrap: 'wrap',
+			}}
+		>
 			{props.chips.map((item, index) => {
 				if (item?.value) {
 					return (

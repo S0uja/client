@@ -1,5 +1,6 @@
 import {
 	Box,
+	Chip,
 	Pagination,
 	PaginationItem,
 	Paper,
@@ -10,6 +11,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getMainPage } from '../http/Products.http'
+import { setManufacturers } from '../store/manufacturers.store'
 import { setSnackbarModal } from '../store/modals.store'
 import {
 	setCategory,
@@ -32,7 +34,7 @@ import LoadingCard from './LoadingCard.component'
 import NotFoundDataComponent from './NotFoundData.component'
 import SearchComponent from './Search.component'
 
-const Catalog = () => {
+const Catalog = props => {
 	const Products = useSelector(state => state.products.products)
 	const Collections = useSelector(state => state.products.collections)
 	const TotalPages = useSelector(state => state.products.totalPages)
@@ -40,6 +42,7 @@ const Catalog = () => {
 	const Search = useSelector(state => state.products.search)
 	const Category = useSelector(state => state.products.category)
 	const Manufacturer = useSelector(state => state.products.manufacturer)
+	const Manufacturers = useSelector(state => state.manufacturers.manufacturers)
 
 	const [update, setUpdate] = useState(true)
 	const dispatch = useDispatch()
@@ -49,6 +52,7 @@ const Catalog = () => {
 
 	//ХУК ОТВЕЧАЮЩИЙ ЗА ПОИСК ТОВАРОВ
 	useEffect(() => {
+		if (!props.ready) return
 		setLoading(true)
 
 		const updateProducts = async () => {
@@ -65,6 +69,7 @@ const Catalog = () => {
 					dispatch(setCollections(mainPageResponse.data.data.list))
 				}
 				dispatch(setTotalPages(0))
+				dispatch(setManufacturers([]))
 				dispatch(setProductsLoading(false))
 			} else {
 				const res = await handleRequest(
@@ -95,6 +100,7 @@ const Catalog = () => {
 					)
 				} else {
 					dispatch(setProducts(res.data.data.list))
+					dispatch(setManufacturers(res.data.data.manufacturers))
 					dispatch(setTotalPages(res.data.data.totalPages))
 				}
 			}
@@ -102,11 +108,17 @@ const Catalog = () => {
 			setLoading(false)
 		}
 		updateProducts()
-	}, [Search, Category, Page, Manufacturer, navigate, update])
+	}, [Search, Category, Page, Manufacturer, navigate, update, props.ready])
 
 	const handleChangePage = async (e, value) => {
 		if (value === Page) return
 		dispatch(setPage(value))
+	}
+
+	const handleChangeManufacturer = async (name, value) => {
+		if (value === Manufacturer?.value) return
+		dispatch(setPage(1))
+		dispatch(setManufacturer({ name: name, value: value }))
 	}
 
 	const handleChangeSearch = async value => {
@@ -219,6 +231,35 @@ const Catalog = () => {
 			{!loading && Products.length > 0 && (
 				<Box id='catalog' sx={{ minHeight: '50vh', pt: 0 }}>
 					<Box sx={{ display: 'flex', pl: 2, mb: 2, gap: 2, flexWrap: 'wrap' }}>
+						{!!Manufacturers.length && (
+							<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
+								Производители
+							</Typography>
+						)}
+						<Box
+							sx={{
+								width: '100%',
+								boxSizing: 'border-box',
+								display: 'flex',
+								pr: 2,
+								mb: Manufacturers.length ? 2 : 0,
+								gap: 1,
+								flexWrap: 'wrap',
+							}}
+						>
+							{Manufacturers.map((manufacturer, index) => (
+								<Chip
+									key={index}
+									size='medium'
+									label={manufacturer.name}
+									variant='contained'
+									sx={{ cursor: 'pointer' }}
+									onClick={() =>
+										handleChangeManufacturer(manufacturer.name, manufacturer.id)
+									}
+								/>
+							))}
+						</Box>
 						<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
 							Все товары
 						</Typography>

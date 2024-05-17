@@ -30,7 +30,7 @@ const NotFoundDataComponent = props => {
 					sx={{
 						transform: rolling ? 'rotate(360deg)' : 'rotate(0deg)',
 						transition: 'transform 0.5s',
-						mx: 1,
+						mr: 1,
 					}}
 				>
 					<ReplayIcon />

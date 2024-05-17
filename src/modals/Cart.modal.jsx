@@ -13,11 +13,15 @@ import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import AutocompleteMap from '../components/AutocompleteMap.component'
 import CloseButtonComponent from '../components/CloseButton.component'
-import OrderButon from '../components/OrderButton.component'
+import LoadingButton from '../components/LoadingButton.component'
 import ProductButton from '../components/ProductButton.component'
 import { createOrder } from '../http/Orders.http'
 import { setCart } from '../store/cart.store'
-import { setCartModal, setSnackbarModal } from '../store/modals.store'
+import {
+	setAuthModal,
+	setCartModal,
+	setSnackbarModal,
+} from '../store/modals.store'
 import { setAddresses, setOrders } from '../store/user.store'
 import font from '../themes/font.theme'
 import modal from '../themes/modal.theme'
@@ -31,13 +35,11 @@ const CartModal = () => {
 	const Cart = useSelector(state => state.cart.cart)
 	const Addresses = useSelector(state => state.user.addresses)
 	const Orders = useSelector(state => state.user.orders)
+	const UserInfo = useSelector(state => state.user.userInfo)
 	const [notAvailableProducts, setNotAvailableProducts] = useState(false)
-
 	const CartAvailable = Cart.filter(item => item.product.amount > 0)
 	const CartNotAvailable = Cart.filter(item => item.product.amount <= 0)
-
 	const { totalLiters, totalKilograms } = ConvertToLitersAndKilograms(Cart)
-
 	const [address, setAddress] = useState(null)
 	const [addressError, setAddressError] = useState({
 		status: false,
@@ -462,7 +464,16 @@ const CartModal = () => {
 							{CartPriceReduce(CartAvailable)} ₽
 						</Typography>
 
-						<OrderButon disabled={!Cart.length} onClick={handleCreateOrder} />
+						<LoadingButton
+							label={'Оформить'}
+							disable={!Cart.length}
+							onClick={() => {
+								if (!UserInfo.role) {
+									return dispatch(setAuthModal(true))
+								}
+								handleCreateOrder()
+							}}
+						/>
 					</Box>
 				</Box>
 			</Box>

@@ -348,7 +348,7 @@ const PersonalModal = props => {
 								mb: 3,
 							}}
 						>
-							{mode === 'create' ? 'Новый сотрудник' : 'Редактирование'}
+							{mode === 'create' ? 'Новый пользователь' : 'Редактирование'}
 						</Box>
 						<Box
 							sx={{

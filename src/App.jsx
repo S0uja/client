@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Unstable_Grid2'
 import { ThemeProvider } from '@mui/material/styles'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import Cart from './components/Cart.component'
 import CartFab from './components/CartFab.component'
@@ -10,11 +10,7 @@ import FooterComponent from './components/Footer.component'
 import Header from './components/Header.component'
 import { getCart } from './http/Cart.http'
 import { getOneCategory } from './http/Categories.http'
-import {
-	getAllManufacturers,
-	getOneManufacturer,
-} from './http/Manufacturers.http'
-import { getAllOrders } from './http/Orders.http'
+import { getOneManufacturer } from './http/Manufacturers.http'
 import { userCheck } from './http/User.http'
 import AuthModal from './modals/Auth.modal'
 import CartModal from './modals/Cart.modal'
@@ -25,7 +21,6 @@ import RateProductModal from './modals/RateProduct.modal'
 import SnackbarModal from './modals/Snackbar.modal'
 import SupportModal from './modals/Support.modal'
 import { setCart } from './store/cart.store'
-import { setManufacturers } from './store/manufacturers.store'
 import {
 	setCategory,
 	setManufacturer,
@@ -33,12 +28,13 @@ import {
 	setSearch,
 	setSearchInput,
 } from './store/products.store'
-import { setAddresses, setOrders, setUserInfo } from './store/user.store'
+import { setAddresses, setUserInfo } from './store/user.store'
 import theme from './themes/colors.theme'
 import SyncCart from './utils/SyncCart.util'
 
 export const App = () => {
 	const dispatch = useDispatch()
+	const [catalogReady, setCatalogReady] = useState(false)
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -77,28 +73,19 @@ export const App = () => {
 					dispatch(setSearch(params.search))
 					dispatch(
 						setManufacturer({
-							name: params.category?.name,
-							value: params.category?.id,
+							name: params.manufacturer?.name,
+							value: params.manufacturer?.id,
 						})
 					)
 					dispatch(setSearchInput(params.search))
 				}
+				setCatalogReady(true)
 
 				if (localStorage.getItem('token')) {
 					const userResponse = await userCheck()
 					if (userResponse?.data) {
 						dispatch(setUserInfo(userResponse.data.data[0]))
 					}
-				}
-
-				const manufacturersResponse = await getAllManufacturers()
-				if (manufacturersResponse) {
-					dispatch(setManufacturers(manufacturersResponse.data.data))
-				}
-
-				const ordersResponse = await getAllOrders()
-				if (ordersResponse) {
-					dispatch(setOrders(ordersResponse.data.data))
 				}
 
 				if (localStorage.getItem('addresses')) {
@@ -217,7 +204,7 @@ export const App = () => {
 				</Grid>
 
 				<Grid es={12} xs={12} sm={12} md={9} lg={9} xl={6.5}>
-					<Catalog />
+					<Catalog ready={catalogReady} />
 				</Grid>
 
 				<Grid

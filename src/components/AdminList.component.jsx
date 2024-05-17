@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
+import ArticleIcon from '@mui/icons-material/Article'
 import CategoryIcon from '@mui/icons-material/Category'
 import CollectionsIcon from '@mui/icons-material/Collections'
 import DashboardIcon from '@mui/icons-material/Dashboard'
@@ -137,6 +138,21 @@ const AdminListComponent = props => {
 			>
 				База данных
 			</Divider>
+
+			<ListItemButton
+				sx={{ borderRadius: 2, minWidth: '170px' }}
+				onClick={() => props.onChange('sql')}
+			>
+				<ListItemAvatar sx={{ minWidth: 40 }}>
+					<Avatar
+						variant='rounded'
+						sx={{ width: 24, height: 24, bgcolor: '#404040' }}
+					>
+						<ArticleIcon sx={{ width: '16px' }} />
+					</Avatar>
+				</ListItemAvatar>
+				<ListItemText primaryTypographyProps={font} primary={'SQL'} />
+			</ListItemButton>
 
 			<ListItemButton
 				sx={{ borderRadius: 2, minWidth: '170px' }}

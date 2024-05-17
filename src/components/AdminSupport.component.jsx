@@ -1,10 +1,19 @@
-import { Box, CircularProgress, Paper, Typography } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
+import {
+	Box,
+	CircularProgress,
+	Collapse,
+	IconButton,
+	Paper,
+	Typography,
+} from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import font from '../themes/font.theme'
 import GetCurrentTimeUtil from '../utils/GetCurrentTime.util'
 import ChatFieldComponent from './ChatField.component'
 import MessageComponent from './Message.component'
+import NotFoundDataComponent from './NotFoundData.component'
 let SOCKET
 
 const AdminSupportComponent = () => {
@@ -13,6 +22,7 @@ const AdminSupportComponent = () => {
 	const [messages, setMessages] = useState([])
 	const [clients, setClients] = useState([])
 	const [loading, setLoading] = useState(true)
+	const [open, setOpen] = useState(false)
 	const messagesEndRef = useRef(null)
 
 	useEffect(() => {
@@ -125,29 +135,30 @@ const AdminSupportComponent = () => {
 				sx={{
 					display: 'flex',
 					mt: 2,
+					width: '100%',
 					height: '570px',
 					border: '3px solid #eeeeee',
 					borderRadius: 2,
+					position: 'relative',
+					overflow: 'hidden',
 				}}
 			>
-				<Box
+				<Collapse
 					sx={{
 						bgcolor: '#eeeeee',
-						width: '30%',
+						left: 0,
+						position: 'absolute',
+						zIndex: 444444,
+						height: '95%',
 						p: 2,
 					}}
+					unmountOnExit
+					orientation='horizontal'
+					in={open}
 				>
+					<Box sx={{ width: '220px' }}></Box>
 					{clients.length < 1 ? (
-						<Box
-							sx={{
-								...font,
-								cursor: 'pointer',
-								fontSize: '16px',
-								textAlign: 'center',
-							}}
-						>
-							Нет обращений
-						</Box>
+						<NotFoundDataComponent label={'Нет обращений'} reload={false} />
 					) : (
 						clients.map((client, i) => (
 							<Box
@@ -155,6 +166,7 @@ const AdminSupportComponent = () => {
 									...font,
 									cursor: 'pointer',
 									fontSize: '16px',
+									borderRadius: 2,
 									p: 2,
 									bgcolor: '#fff',
 								}}
@@ -165,19 +177,35 @@ const AdminSupportComponent = () => {
 							</Box>
 						))
 					)}
+				</Collapse>
+				<Box
+					sx={{
+						height: '40px',
+						borderBottomRightRadius: 16,
+						backgroundColor: '#eeeeee',
+						position: 'absolute',
+						top: 0,
+						zIndex: 44444,
+						transition: '300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+						left: open ? '252px' : '0',
+					}}
+				>
+					<IconButton onClick={() => setOpen(!open)}>
+						<MenuIcon />
+					</IconButton>
 				</Box>
-
 				<Box
 					sx={{
 						boxSizing: 'border-box',
-						width: '70%',
+						width: '100%',
 						display: 'flex',
 						justifyContent: 'start',
 						flexDirection: 'column',
+						position: 'relative',
 						p: 2,
 					}}
 				>
-					<Box sx={{ ...font, fontSize: '16px', mb: 2 }}>
+					<Box sx={{ ...font, textAlign: 'center', fontSize: '16px', mb: 2 }}>
 						{room ? 'Поддержка #' + room : 'Откройте чат с клиентом'}
 					</Box>
 

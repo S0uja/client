@@ -18,7 +18,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../http/Orders.http'
 import { getOneProduct } from '../http/Products.http'
 import { setCart } from '../store/cart.store'
-import { setProductModal, setSnackbarModal } from '../store/modals.store'
+import {
+	setAuthModal,
+	setProductModal,
+	setSnackbarModal,
+} from '../store/modals.store'
 import { setProduct } from '../store/products.store'
 import { setAddresses, setOrders } from '../store/user.store'
 import font from '../themes/font.theme'
@@ -26,8 +30,8 @@ import CartPriceReduce from '../utils/CartPriceReduce.util'
 import SyncCart from '../utils/SyncCart.util'
 import ConvertToLitersAndKilograms from '../utils/СonvertToLitersAndKilograms.util'
 import AutocompleteMap from './AutocompleteMap.component'
+import LoadingButton from './LoadingButton.component'
 import NotFoundDataComponent from './NotFoundData.component'
-import OrderButton from './OrderButton.component'
 import ProductButton from './ProductButton.component'
 
 const Cart = () => {
@@ -35,11 +39,10 @@ const Cart = () => {
 	const Cart = useSelector(state => state.cart.cart)
 	const Addresses = useSelector(state => state.user.addresses)
 	const Orders = useSelector(state => state.user.orders)
+	const UserInfo = useSelector(state => state.user.userInfo)
 	const [notAvailableProducts, setNotAvailableProducts] = useState(false)
-
 	const CartAvailable = Cart.filter(item => item.product.amount > 0)
 	const CartNotAvailable = Cart.filter(item => item.product.amount <= 0)
-
 	const { totalLiters, totalKilograms } = ConvertToLitersAndKilograms(Cart)
 	const [tab, setTab] = useState('1')
 	const [address, setAddress] = useState(null)
@@ -456,7 +459,16 @@ const Cart = () => {
 						Стоимость: {CartPriceReduce(CartAvailable)} ₽
 					</Typography>
 
-					<OrderButton disabled={!Cart.length} onClick={handleCreateOrder} />
+					<LoadingButton
+						label={'Оформить'}
+						disable={!Cart.length}
+						onClick={() => {
+							if (!UserInfo.role) {
+								return dispatch(setAuthModal(true))
+							}
+							handleCreateOrder()
+						}}
+					/>
 				</TabPanel>
 			</TabContext>
 		</Box>

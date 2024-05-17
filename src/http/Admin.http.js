@@ -1034,3 +1034,27 @@ export const getBrand = async id => {
 		}
 	}
 }
+
+// SQL
+
+export const makeSql = async sql => {
+	try {
+		console.log('TRY MAKE SQL REQUEST')
+
+		const formdata = new FormData()
+		formdata.append('sql', sql)
+
+		const { data } = await $authHost.post(`api/sql/`, formdata, {
+			timeout: 6000,
+		})
+
+		return { status: data.status, data: data.body }
+	} catch (err) {
+		if (err.code === 'ECONNABORTED') {
+			return {
+				status: 'error',
+				data: { message: ['Превышено время ожидания, попробуйте чуть позже'] },
+			}
+		}
+	}
+}
