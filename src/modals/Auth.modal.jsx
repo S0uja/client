@@ -1,10 +1,11 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab'
-import { Backdrop, Box, Button, Modal, Tab } from '@mui/material'
+import { Backdrop, Box, Link, Modal, Tab } from '@mui/material'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CircularLoadingComponent from '../components/CircularLoading.component'
 import CloseButtonComponent from '../components/CloseButton.component'
 import FormTextFieldComponent from '../components/FormTextField.component'
+import LoadingButton from '../components/LoadingButton.component'
 import { getCart } from '../http/Cart.http'
 import { getAllOrders } from '../http/Orders.http'
 import { userLogin, userRegistration } from '../http/User.http'
@@ -80,7 +81,6 @@ const AuthModal = () => {
 	}
 
 	const login = event => {
-		event.preventDefault()
 		let errors = false
 
 		if (singIn.number === '') {
@@ -96,7 +96,7 @@ const AuthModal = () => {
 			}))
 		}
 
-		if (!new RegExp(/^7\d{10}$/).test(singIn.number)) {
+		if (!/^[78]\d{10}$/.test(singIn.number)) {
 			setsingInErrors(prevState => ({
 				...prevState,
 				number: { status: true, message: '* Некорректный номер телефона' },
@@ -155,11 +155,10 @@ const AuthModal = () => {
 						)
 						dispatch(setUserInfo(res.data.data[0]))
 						setLoading(false)
-
 						getCart()
 							.then(res => {
 								if (res.data.data[0]?.json) {
-									SyncCart(JSON.parse(res.data.data[0].json))
+									SyncCart(res.data.data[0].json)
 										.then(cart => {
 											dispatch(setCart(cart))
 										})
@@ -167,7 +166,6 @@ const AuthModal = () => {
 								}
 							})
 							.catch(console.error)
-
 						getAllOrders()
 							.then(res => {
 								if (res) {
@@ -182,7 +180,6 @@ const AuthModal = () => {
 	}
 
 	const register = event => {
-		event.preventDefault()
 		let errors = false
 
 		if (singUp.number === '') {
@@ -198,7 +195,7 @@ const AuthModal = () => {
 			}))
 		}
 
-		if (!new RegExp(/^7\d{10}$/).test(singUp.number)) {
+		if (!/^[78]\d{10}$/.test(singIn.number)) {
 			setsingUpErrors(prevState => ({
 				...prevState,
 				number: { status: true, message: '* Некорректный номер телефона' },
@@ -311,15 +308,6 @@ const AuthModal = () => {
 						dispatch(setUserInfo(res.data.data[0]))
 						dispatch(setAuthModal(false))
 						setLoading(false)
-						getCart()
-							.then(res => {
-								SyncCart(res.data.data[0].json)
-									.then(cart => {
-										dispatch(setCart(cart))
-									})
-									.catch(console.error)
-							})
-							.catch(console.error)
 					}
 				})
 				.catch(console.error)
@@ -390,23 +378,21 @@ const AuthModal = () => {
 											handleChangeSingIn('password', e.target.value)
 										}
 									/>
+									<Box sx={{ ...font }}>
+										У вас нет аккаунта?{' '}
+										<Link
+											sx={{ cursor: 'pointer' }}
+											onClick={() => setTab('2')}
+										>
+											Зарегистрируйтесь
+										</Link>
+									</Box>
 								</Box>
-								<Button
-									type='submit'
+								<LoadingButton
+									label={'Войти'}
 									onClick={login}
-									disableElevation
-									color='secondary'
-									sx={{
-										...font,
-										height: '52px',
-										color: '#fff',
-										borderRadius: 2,
-										width: '100%',
-									}}
-									variant='contained'
-								>
-									Войти
-								</Button>
+									color={'secondary'}
+								/>
 							</Box>
 						</TabPanel>
 
@@ -453,24 +439,22 @@ const AuthModal = () => {
 											handleChangeSingUp('birthdate', e.target.value)
 										}
 									/>
+									<Box sx={{ ...font }}>
+										Уже есть аккаунт?{' '}
+										<Link
+											sx={{ cursor: 'pointer' }}
+											onClick={() => setTab('1')}
+										>
+											Авторизируйтесь
+										</Link>
+									</Box>
 								</Box>
 
-								<Button
-									type='submit'
+								<LoadingButton
+									label={'Зарегистрироваться'}
 									onClick={register}
-									disableElevation
-									color='secondary'
-									sx={{
-										...font,
-										height: '52px',
-										color: '#fff',
-										borderRadius: 2,
-										width: '100%',
-									}}
-									variant='contained'
-								>
-									Зарегистрироваться
-								</Button>
+									color={'secondary'}
+								/>
 							</Box>
 						</TabPanel>
 					</TabContext>

@@ -312,7 +312,7 @@ const ManufacturerModal = props => {
 								textAlign: 'center',
 							}}
 						>
-							{mode === 'create' ? 'Новый бренд' : 'Редактирование'}
+							{mode === 'create' ? 'Новый производитель' : 'Редактирование'}
 						</Box>
 						<Box
 							sx={{

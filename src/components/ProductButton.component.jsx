@@ -78,12 +78,28 @@ const ProductButton = props => {
 						fontWeight: 750,
 						width: 1,
 						borderRadius: 2,
+						'.MuiButton-endIcon': {
+							width: '100%',
+							margin: 0,
+						},
+						'.MuiButton-startIcon': {
+							width: '100%',
+							margin: 0,
+						},
 					}}
 					endIcon={
-						<AddIcon size='small' onClick={() => handleChange('remove')} />
+						<AddIcon
+							sx={{ width: '100%' }}
+							size='small'
+							onClick={() => handleChange('remove')}
+						/>
 					}
 					startIcon={
-						<RemoveIcon size='small' onClick={() => handleChange('add')} />
+						<RemoveIcon
+							sx={{ width: '100%' }}
+							size='small'
+							onClick={() => handleChange('add')}
+						/>
 					}
 				>
 					{Cart.filter(item => item.productId === props.id)[0].count}

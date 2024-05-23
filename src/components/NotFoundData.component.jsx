@@ -19,6 +19,7 @@ const NotFoundDataComponent = props => {
 				justifyContent: 'center',
 				alignItems: 'center',
 				flex: 1,
+				...props.sx,
 			}}
 		>
 			{props.reload != false && (

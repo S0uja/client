@@ -1,7 +1,9 @@
-import { Backdrop, Box, Button, Chip, Modal, Typography } from '@mui/material'
+import StarHalfIcon from '@mui/icons-material/StarHalf'
+import { Backdrop, Box, Chip, Modal, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CloseButtonComponent from '../components/CloseButton.component'
+import LoadingButton from '../components/LoadingButton.component'
 import NotFoundDataComponent from '../components/NotFoundData.component'
 import { getAllOrders } from '../http/Orders.http'
 import { getOneProduct } from '../http/Products.http'
@@ -122,7 +124,7 @@ const OrderModal = () => {
 													...font,
 													fontWeight: 800,
 													color: '#787878',
-													fontSize: '12px',
+													fontSize: 14,
 												}}
 												variant='p'
 											>
@@ -133,7 +135,7 @@ const OrderModal = () => {
 													...font,
 													fontWeight: 800,
 													color: '#787878',
-													fontSize: '12px',
+													fontSize: 14,
 												}}
 												variant='p'
 											>
@@ -153,7 +155,8 @@ const OrderModal = () => {
 													...font,
 													fontWeight: 800,
 													color: '#787878',
-													fontSize: '12px',
+													fontSize: 14,
+													textAlign: 'end',
 												}}
 												variant='p'
 											>
@@ -166,7 +169,7 @@ const OrderModal = () => {
 														width: 'auto',
 														color: '',
 														textTransform: 'uppercase',
-														fontSize: '11px',
+														fontSize: 12,
 													}}
 													size='small'
 													label={order.order_status.name}
@@ -209,27 +212,35 @@ const OrderModal = () => {
 											}}
 										>
 											<Typography
-												sx={{ ...font, fontWeight: 600, fontSize: '12px' }}
+												sx={{ ...font, fontWeight: 600, fontSize: '14px' }}
 												variant='p'
 											>
 												Доставка на адрес {order.address}
 											</Typography>
 											<Typography
-												sx={{ ...font, fontWeight: 600, fontSize: '12px' }}
+												sx={{ ...font, fontWeight: 600, fontSize: '14px' }}
 												variant='p'
 											>
 												Дата обновления {FormatDate(order.updatedAt)}
 											</Typography>
-											<Button
-												size='small'
-												sx={{ ...font, fontSize: '10px', color: '' }}
+											<LoadingButton
+												sx={{
+													display:
+														order.order_status.id === 1 ||
+														order.order_status.id === 2
+															? 'none'
+															: 'flex',
+												}}
+												size={'small'}
+												disable={
+													order.order_status.id === 1 ||
+													order.order_status.id === 2
+												}
+												label={'Оценить товары'}
 												onClick={openRateProductModal}
-												variant='contained'
-												disableElevation
-												disabled={!order.order_status.id === 2}
-											>
-												Оценить товары
-											</Button>
+												color={'secondary'}
+												icon={<StarHalfIcon size={'small'} />}
+											/>
 										</Box>
 										<Box
 											sx={{
@@ -257,7 +268,7 @@ const OrderModal = () => {
 														}
 														key={i}
 														sx={{
-															height: '60px',
+															height: '80px',
 															width: {
 																es: 'calc(33.33% - 16px)',
 																xs: 'calc(33.33% - 16px)',

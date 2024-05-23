@@ -2,6 +2,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import CreditScoreIcon from '@mui/icons-material/CreditScore'
 import FastfoodIcon from '@mui/icons-material/Fastfood'
 import LogoutIcon from '@mui/icons-material/Logout'
+import MenuIcon from '@mui/icons-material/Menu'
 import PersonIcon from '@mui/icons-material/Person'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import SupportAgentIcon from '@mui/icons-material/SupportAgent'
@@ -134,11 +135,11 @@ const Header = () => {
 			) : (
 				<Box sx={{ display: 'flex', alignItems: 'center' }}>
 					<Button
-						aria-describedby={id}
 						variant='text'
 						onClick={handleOpenPopover}
 						sx={{ p: 0, textTransform: 'none' }}
 					>
+						<MenuIcon size={'small'} sx={{ color: 'rgb(64, 64, 64)' }} />
 						<Typography sx={{ ...font, mx: 2 }}>
 							{ShortingFio(UserInfo.fio)}
 						</Typography>

@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from '@mui/material'
 
-const CircularLoadingComponent = () => {
+const CircularLoadingComponent = props => {
 	return (
 		<Box
 			sx={{
@@ -11,6 +11,7 @@ const CircularLoadingComponent = () => {
 				alignItems: 'center',
 				flexGrow: 1,
 				flex: 1,
+				...props.sx,
 			}}
 		>
 			<CircularProgress color='primary' sx={{ height: '100%' }} />

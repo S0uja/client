@@ -20,7 +20,7 @@ const LoadingButtonComponent = props => {
 			variant={'contained'}
 			color={props.color || 'success'}
 			onClick={handleClick}
-			size='large'
+			size={props.size || 'large'}
 			sx={{
 				...font,
 				color: '#fff',
@@ -28,6 +28,10 @@ const LoadingButtonComponent = props => {
 				fontWeight: 600,
 				width: 1,
 				borderRadius: 2,
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				...props.sx,
 			}}
 			startIcon={props.icon || <CheckIcon size='small' />}
 		>

@@ -100,8 +100,6 @@ const CategoryModal = props => {
 		})
 	}
 
-	console.log(fields.images)
-
 	const handleClose = () => {
 		dispatch(setAdminCategoryModal(false))
 		clearFields()

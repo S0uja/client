@@ -1,5 +1,5 @@
+import ClearIcon from '@mui/icons-material/Clear'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import { LoadingButton } from '@mui/lab'
 import {
 	Backdrop,
 	Box,
@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import CloseButtonComponent from '../components/CloseButton.component'
+import LoadingButton from '../components/LoadingButton.component'
 import { userUpdate, userUpdatePassword } from '../http/User.http'
 import { setCart } from '../store/cart.store'
 import { setProfileModal, setSnackbarModal } from '../store/modals.store'
@@ -27,7 +28,6 @@ const ProfileModal = props => {
 	const UserInfo = useSelector(state => state.user.userInfo)
 	const Addresses = useSelector(state => state.user.addresses)
 	const [tab, setTab] = useState(1)
-	const [loading, setLoading] = useState(false)
 
 	const [fio, setFio] = useState(UserInfo?.fio)
 	const [number, setNumber] = useState(UserInfo?.number)
@@ -74,7 +74,6 @@ const ProfileModal = props => {
 	}
 
 	const updateUserInfo = event => {
-		event.preventDefault()
 		let errors = false
 		if (
 			number === UserInfo.number &&
@@ -91,7 +90,7 @@ const ProfileModal = props => {
 			errors = true
 		}
 
-		if (!new RegExp(/^7\d{10}$/).test(number)) {
+		if (!/^[78]\d{10}$/.test(UserInfo.number)) {
 			setUpdateInfoErrors(prevState => ({
 				...prevState,
 				number: { status: true, message: '* Некорректный номер телефона' },
@@ -171,7 +170,6 @@ const ProfileModal = props => {
 	}
 
 	const updateUserPassword = event => {
-		event.preventDefault()
 		let errors = false
 
 		if (currentPassword === '') {
@@ -271,12 +269,36 @@ const ProfileModal = props => {
 				}}
 			>
 				<CloseButtonComponent handleClick={handleCloseProfileModal} />
-
 				<Box
 					sx={{
-						width: '100%',
-						minWidth: '300px',
-						p: 3,
+						...font,
+						fontSize: '20px',
+						position: 'absolute',
+						display: {
+							es: 'flex',
+							xs: 'flex',
+							sm: 'flex',
+							md: 'none',
+							lg: 'none',
+							xl: 'none',
+						},
+					}}
+				>
+					Личный кабинет
+				</Box>
+				<Box
+					sx={{
+						width: {
+							es: '100%',
+							xs: '100%',
+							sm: '100%',
+							md: '60%',
+							lg: '60%',
+							xl: '60%',
+						},
+						p: 2,
+						pb: 0,
+						minWidth: '200px',
 						boxSizing: 'border-box',
 					}}
 				>
@@ -300,11 +322,12 @@ const ProfileModal = props => {
 								mx: 2,
 								color: '#fff',
 								justifyContent: 'center',
+								textAlign: 'center',
 								alignItems: 'center',
 								display: 'flex',
 								fontSize: {
-									es: '14px',
-									xs: '14px',
+									es: '20px',
+									xs: '20px',
 									sm: '20px',
 									md: '20px',
 									lg: '20px',
@@ -347,15 +370,21 @@ const ProfileModal = props => {
 							sx={{
 								...font,
 								fontSize: '16px',
-								minWidth: 'auto',
+								minWidth: '96px',
 								boxSizing: 'content-box',
-								whiteSpace: 'nowrap',
 								width: '100%',
 								cursor: 'pointer',
 								display: 'flex',
 								alignItems: 'center',
 								textTransform: 'none',
-								justifyContent: 'start',
+								justifyContent: {
+									es: 'center',
+									xs: 'center',
+									sm: 'center',
+									md: 'start',
+									lg: 'start',
+									xl: 'start',
+								},
 								borderRadius: 0,
 							}}
 						>
@@ -367,16 +396,23 @@ const ProfileModal = props => {
 							sx={{
 								...font,
 								fontSize: '16px',
-								minWidth: 'auto',
+								minWidth: '96px',
 								boxSizing: 'content-box',
-								whiteSpace: 'nowrap',
 								width: '100%',
 								cursor: 'pointer',
 								display: 'flex',
 								alignItems: 'center',
 								textTransform: 'none',
-								justifyContent: 'start',
+								justifyContent: {
+									es: 'center',
+									xs: 'center',
+									sm: 'center',
+									md: 'start',
+									lg: 'start',
+									xl: 'start',
+								},
 								borderRadius: 0,
+								textAlign: 'center',
 							}}
 						>
 							Адреса
@@ -387,16 +423,23 @@ const ProfileModal = props => {
 							sx={{
 								...font,
 								fontSize: '16px',
-								minWidth: 'auto',
+								minWidth: '96px',
 								boxSizing: 'content-box',
-								whiteSpace: 'nowrap',
 								width: '100%',
 								cursor: 'pointer',
 								display: 'flex',
 								alignItems: 'center',
 								textTransform: 'none',
-								justifyContent: 'start',
+								justifyContent: {
+									es: 'center',
+									xs: 'center',
+									sm: 'center',
+									md: 'start',
+									lg: 'start',
+									xl: 'start',
+								},
 								borderRadius: 0,
+								textAlign: 'center',
 							}}
 						>
 							Безопасность
@@ -407,15 +450,21 @@ const ProfileModal = props => {
 							sx={{
 								...font,
 								fontSize: '16px',
-								minWidth: 'auto',
+								minWidth: '96px',
 								boxSizing: 'content-box',
-								whiteSpace: 'nowrap',
 								cursor: 'pointer',
 								display: 'flex',
 								alignItems: 'center',
 								color: '#c62828',
 								textTransform: 'none',
-								justifyContent: 'start',
+								justifyContent: {
+									es: 'center',
+									xs: 'center',
+									sm: 'center',
+									md: 'start',
+									lg: 'start',
+									xl: 'start',
+								},
 								borderRadius: 0,
 							}}
 						>
@@ -428,7 +477,7 @@ const ProfileModal = props => {
 					sx={{
 						boxSizing: 'border-box',
 						flexGrow: 2,
-						p: 3,
+						p: 2,
 						width: '100%',
 						height: '100%',
 						display: tab === 1 ? 'flex' : 'none',
@@ -519,26 +568,25 @@ const ProfileModal = props => {
 						}}
 					>
 						<LoadingButton
-							size={'large'}
-							loading={loading}
-							disableElevation
-							sx={{ ...font, flexGrow: 1, color: '', borderRadius: 2 }}
+							label={'Сохранить'}
 							onClick={updateUserInfo}
-							variant='contained'
-							color='success'
-						>
-							Сохранить
-						</LoadingButton>
+							disable={
+								number === UserInfo.number &&
+								fio === UserInfo?.fio &&
+								birthdate === UserInfo.birthdate
+							}
+						/>
 						<LoadingButton
-							size={'large'}
-							disableElevation
-							sx={{ ...font, flexGrow: 1, color: '', borderRadius: 2 }}
+							label={'Сбросить'}
+							disable={
+								number === UserInfo.number &&
+								fio === UserInfo?.fio &&
+								birthdate === UserInfo.birthdate
+							}
+							icon={<ClearIcon size='small' />}
 							onClick={handleResetUserInfo}
-							variant='contained'
-							color='error'
-						>
-							Сбросить
-						</LoadingButton>
+							color={'error'}
+						/>
 					</Box>
 				</Box>
 
@@ -546,7 +594,15 @@ const ProfileModal = props => {
 					sx={{
 						boxSizing: 'border-box',
 						display: tab === 2 ? 'flex' : 'none',
-						p: 3,
+						p: 2,
+						pt: {
+							es: 1,
+							xs: 1,
+							sm: 1,
+							md: 4,
+							lg: 4,
+							xl: 4,
+						},
 						width: '100%',
 						height: '100%',
 						flexDirection: 'column',
@@ -579,7 +635,7 @@ const ProfileModal = props => {
 								<Box
 									key={index}
 									sx={{
-										maxWidth: '350px',
+										maxWidth: '450px',
 										display: 'flex',
 										alignItems: 'center',
 										justifyContent: 'space-between',
@@ -596,6 +652,7 @@ const ProfileModal = props => {
 										variant='p'
 										sx={{
 											...font,
+											fontSize: '14px',
 											width: '100%',
 											whiteSpace: 'nowrap',
 											overflow: 'hidden',
@@ -656,7 +713,15 @@ const ProfileModal = props => {
 					sx={{
 						boxSizing: 'border-box',
 						display: tab === 3 ? 'flex' : 'none',
-						p: 3,
+						p: 2,
+						pt: {
+							es: 1,
+							xs: 1,
+							sm: 1,
+							md: 4,
+							lg: 4,
+							xl: 4,
+						},
 						width: '100%',
 						height: '100%',
 						flexDirection: 'column',
@@ -714,20 +779,13 @@ const ProfileModal = props => {
 					<Box
 						sx={{
 							display: 'flex',
-							my: '10px',
 							gap: 2,
 							justifyContent: 'center',
+							maxWidth: '350px',
+							m: '10px auto',
 						}}
 					>
-						<Button
-							sx={{ ...font, color: '', borderRadius: 2 }}
-							onClick={updateUserPassword}
-							disableElevation
-							variant='contained'
-							color='success'
-						>
-							Сохранить
-						</Button>
+						<LoadingButton label={'Сохранить'} onClick={updateUserPassword} />
 					</Box>
 				</Box>
 			</Box>

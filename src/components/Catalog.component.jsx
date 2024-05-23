@@ -10,7 +10,7 @@ import {
 import { Fragment, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getMainPage } from '../http/Products.http'
+import { getAllProducts, getMainPage } from '../http/Products.http'
 import { setManufacturers } from '../store/manufacturers.store'
 import { setSnackbarModal } from '../store/modals.store'
 import {
@@ -19,13 +19,12 @@ import {
 	setManufacturer,
 	setPage,
 	setProducts,
-	setProductsLoading,
 	setSearch,
 	setSearchInput,
 	setTotalPages,
 } from '../store/products.store'
 import font from '../themes/font.theme'
-import { handleRequest } from '../utils/HandleRequest.util'
+import changeUrlParams from '../utils/ChangeUrlParams.util'
 import CardComponent from './Card.component'
 import CardCategory from './CardCategory.component'
 import ChipBar from './ChipBar.component'
@@ -55,32 +54,38 @@ const Catalog = props => {
 		if (!props.ready) return
 		setLoading(true)
 
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth',
+		})
+
 		const updateProducts = async () => {
 			if (!Search && !Category?.value && !Manufacturer?.value) {
-				await handleRequest(
-					Page,
-					Search,
-					Category?.value || null,
-					Manufacturer?.value || null,
-					navigate
-				)
+				navigate('/')
 				const mainPageResponse = await getMainPage()
 				if (mainPageResponse) {
 					dispatch(setCollections(mainPageResponse.data.data.list))
 				}
 				dispatch(setTotalPages(0))
 				dispatch(setManufacturers([]))
-				dispatch(setProductsLoading(false))
 			} else {
-				const res = await handleRequest(
+				const params = changeUrlParams(
 					Page,
 					Search,
 					Category?.value || null,
-					Manufacturer?.value || null,
-					navigate
+					Manufacturer?.value || null
 				)
-				window.scrollTo(0, 0)
-				if (!res) {
+				navigate(`/?${params}`)
+
+				const allProducts = await getAllProducts(
+					Page,
+					Category?.value || null,
+					Search,
+					Manufacturer?.value || null,
+					null
+				)
+
+				if (!allProducts) {
 					dispatch(
 						setSnackbarModal({
 							modal: true,
@@ -88,20 +93,20 @@ const Catalog = props => {
 							message: 'Непредвиденная ошибка, попробуйте позже',
 						})
 					)
-				} else if (res?.status === 'error') {
+				} else if (allProducts?.status === 'error') {
 					dispatch(
 						setSnackbarModal({
 							modal: true,
 							severity: 'error',
 							message:
-								res.data.message.join('\n') ||
+								allProducts.data.message.join('\n') ||
 								'Непредвиденная ошибка, попробуйте позже',
 						})
 					)
 				} else {
-					dispatch(setProducts(res.data.data.list))
-					dispatch(setManufacturers(res.data.data.manufacturers))
-					dispatch(setTotalPages(res.data.data.totalPages))
+					dispatch(setProducts(allProducts.data.data.list))
+					dispatch(setManufacturers(allProducts.data.data.manufacturers))
+					dispatch(setTotalPages(allProducts.data.data.totalPages))
 				}
 			}
 
@@ -123,7 +128,6 @@ const Catalog = props => {
 
 	const handleChangeSearch = async value => {
 		if (value.trim().length === 0) return
-
 		dispatch(setPage(1))
 		dispatch(setSearch(value.trim()))
 	}

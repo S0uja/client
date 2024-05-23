@@ -6,9 +6,10 @@ import {
 	TextField,
 } from '@mui/material'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import font from '../themes/font.theme'
+
 const mapState = {
 	center: [56.76, 37.64],
 	zoom: 17,
@@ -23,9 +24,12 @@ const AutocompleteMap = props => {
 	const [options, setOptions] = useState(Addresses)
 	const [loading, setLoading] = useState(false)
 
-	if (!options.length && Addresses.length > 0) {
-		setOptions(Addresses)
-	}
+	useEffect(() => {
+		if (!options.length && Addresses.length > 0) {
+			setOptions(Addresses)
+		}
+	}, [Addresses, options.length])
+
 	const filterOptions = options => {
 		const uniqueOptions = []
 		const uniqueDisplayNames = []
@@ -39,29 +43,31 @@ const AutocompleteMap = props => {
 
 		return uniqueOptions
 	}
+
 	const handleFind = async value => {
 		props.setAddress(value)
-
+		const newValue = value.trim()
 		if (!yMap) return
 		setLoading(true)
-		const res = await yMap.suggest(value)
+		const res = await yMap.suggest(newValue)
 		setOptions(filterOptions(res))
 		setLoading(false)
 	}
+
 	const handleClickToMap = async e => {
 		const coords = e.get('coords')
-
 		setAddressCoord(coords)
-
 		const info = await yMap.geocode(coords)
 		const geoObject = info.geoObjects.get(0)
 		props.setAddress(geoObject.getAddressLine())
 	}
+
 	const handleSelectFromOptions = async value => {
 		const res = await yMap.geocode(value)
 		props.setAddress(value)
 		setAddressCoord(res.geoObjects.get(0).geometry._coordinates)
 	}
+
 	const onYmapsLoad = ymaps => {
 		setLoadingMap(false)
 		setYMap(ymaps)
@@ -71,11 +77,16 @@ const AutocompleteMap = props => {
 			setAddressCoord(coords)
 			const info = await ymaps.geocode(coords)
 			const geoObject = info.geoObjects.get(0)
+
 			setOptions(Addresses)
-			setOptions(prevArray => [
-				{ displayName: geoObject.getAddressLine() },
-				...prevArray,
-			])
+
+			if (Addresses.indexOf(geoObject.getAddressLine()) === -1) {
+				setOptions(prevArray => [
+					{ displayName: geoObject.getAddressLine() },
+					...prevArray,
+				])
+			}
+
 			props.setAddress(geoObject.getAddressLine())
 		}
 		getUserAddress()
@@ -85,7 +96,7 @@ const AutocompleteMap = props => {
 		<Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 2 }}>
 			<Box
 				sx={{
-					widht: '100%',
+					width: '100%',
 					height: '100%',
 					borderRadius: 2,
 					overflow: 'hidden',
@@ -123,18 +134,17 @@ const AutocompleteMap = props => {
 			</Box>
 
 			<Autocomplete
-				disableClearable={true}
-				isOptionEqualToValue={() => true}
 				ListboxProps={{
-					style: { maxHeight: '150px', backgroundColor: '#eeeeee' },
+					style: { maxHeight: '250px', backgroundColor: '#eeeeee' },
 				}}
+				isOptionEqualToValue={(option, value) => true}
 				size={'small'}
 				loading={loading}
 				loadingText='Поиск...'
 				value={props.address}
-				autoSelect={options.lenght > 0 && true}
+				autoSelect={options.length > 0 && true}
 				sx={{ ...font, borderRadius: 4 }}
-				options={options.map(option => option?.displayName)}
+				options={options.map(option => option.displayName)}
 				clearText='Очистить'
 				onChange={(event, value) => {
 					event && handleSelectFromOptions(value)
@@ -142,7 +152,7 @@ const AutocompleteMap = props => {
 				onInputChange={(event, value) => {
 					event && handleFind(value)
 				}}
-				noOptionsText='Введите адрес'
+				noOptionsText='Не найдено'
 				renderInput={params => (
 					<TextField
 						{...params}
@@ -161,6 +171,9 @@ const AutocompleteMap = props => {
 						}}
 						error={props.errors.status}
 						helperText={props.errors.message}
+						autoComplete
+						includeInputInList
+						filterSelectedOptions
 						label='Адрес доставки'
 						InputProps={{
 							...params.InputProps,

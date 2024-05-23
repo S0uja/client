@@ -18,12 +18,13 @@ export const cart = createSlice({
 			) {
 				state.cart.push(action.payload)
 			} else {
-				state.cart.forEach(item => {
+				for (const item of state.cart) {
 					if (item.productId === action.payload.productId) {
 						item.count++
 						item.price += action.payload.price
+						break
 					}
-				})
+				}
 			}
 			changeCart(JSON.stringify(state.cart))
 			localStorage.setItem('cart', JSON.stringify(state.cart))

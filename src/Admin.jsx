@@ -25,7 +25,7 @@ import { setUserInfo } from './store/user.store'
 import theme from './themes/colors.theme'
 
 const Admin = () => {
-	const [loading, setLoading] = useState(false)
+	const [loading, setLoading] = useState(true)
 	const [tab, setTab] = useState('dashboard')
 	const navigate = useNavigate()
 	const dispatch = useDispatch()

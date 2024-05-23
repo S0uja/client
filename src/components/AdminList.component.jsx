@@ -211,7 +211,7 @@ const AdminListComponent = props => {
 						<AccountCircleIcon sx={{ width: '16px' }} />
 					</Avatar>
 				</ListItemAvatar>
-				<ListItemText primaryTypographyProps={font} primary={'Бренды'} />
+				<ListItemText primaryTypographyProps={font} primary={'Производители'} />
 			</ListItemButton>
 
 			<ListItemButton

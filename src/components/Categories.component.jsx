@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllCategories } from '../http/Categories.http'
 import { setCategories } from '../store/categories.store'
 import { setSnackbarModal } from '../store/modals.store'
-import { setCategory, setPage } from '../store/products.store'
+import { setCategory, setManufacturer, setPage } from '../store/products.store'
 import font from '../themes/font.theme'
 import NotFoundDataComponent from './NotFoundData.component'
 
@@ -60,6 +60,7 @@ const Categories = () => {
 	const handleChangeCategory = async (name, value) => {
 		if (value === Category?.value) return
 		dispatch(setPage(1))
+		dispatch(setManufacturer(null))
 		dispatch(setCategory({ name: name, value: value }))
 	}
 

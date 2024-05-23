@@ -56,7 +56,18 @@ const ManufacturersComponent = () => {
 						})
 					)
 				} else if (res.status === 'success') {
-					setData(res.data.data)
+					setData(
+						res.data.data.map(manufacturer => {
+							return {
+								id: manufacturer.id,
+								name: manufacturer.name,
+								contact: manufacturer.contact,
+								description: manufacturer.description || 'NULL',
+								createdAt: manufacturer.createdAt,
+								updatedAt: manufacturer.updatedAt,
+							}
+						})
+					)
 				} else {
 					dispatch(
 						setSnackbarModal({
@@ -128,7 +139,7 @@ const ManufacturersComponent = () => {
 				elevation={0}
 			>
 				<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
-					Бренды
+					Производители
 				</Typography>
 				<Table
 					handleUpdate={updateData}

@@ -7,13 +7,12 @@ import TabPanel from '@mui/lab/TabPanel'
 import {
 	Avatar,
 	Box,
-	Button,
 	Collapse,
 	ListItemAvatar,
 	Typography,
 } from '@mui/material'
 import Tab from '@mui/material/Tab'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { createOrder } from '../http/Orders.http'
 import { getOneProduct } from '../http/Products.http'
@@ -50,6 +49,10 @@ const Cart = () => {
 		status: false,
 		message: null,
 	})
+
+	useEffect(() => {
+		setTab('1')
+	}, [Cart])
 
 	const handleOpenProductModal = id => {
 		dispatch(setProductModal(true))
@@ -164,7 +167,6 @@ const Cart = () => {
 											boxSizing: 'border-box',
 											width: '100%',
 											display: 'flex',
-											gap: 0.5,
 											my: 1,
 											alignItems: 'center',
 										}}
@@ -197,7 +199,7 @@ const Cart = () => {
 													component='div'
 													sx={{
 														...font,
-														width: '85%',
+														width: '100%',
 														wordBreak: 'break-all',
 														overflow: 'hidden',
 														textOverflow: 'ellipsis',
@@ -260,7 +262,13 @@ const Cart = () => {
 											<ProductButton
 												id={item.product.id}
 												variant={'text'}
-												style={{ color: '#404040', padding: 0 }}
+												style={{
+													color: '#404040',
+													padding: 0,
+													flexDirection: 'column-reverse',
+													justifyContent: 'center',
+													alignItems: 'center',
+												}}
 											/>
 										</Box>
 									</Box>
@@ -294,7 +302,6 @@ const Cart = () => {
 												boxSizing: 'border-box',
 												width: '100%',
 												display: 'flex',
-												gap: 0.5,
 												my: 1,
 												alignItems: 'center',
 											}}
@@ -385,27 +392,12 @@ const Cart = () => {
 							</Collapse>
 						)}
 					</Box>
-
-					<Button
-						disabled={!Cart.length > 0}
-						disableElevation
-						variant={'contained'}
-						color='success'
-						onClick={e => handleChange(e, '2')}
-						size='large'
-						sx={{
-							...font,
-							color: '#fff',
-							px: 3,
-							fontWeight: 750,
-							mt: 1,
-							width: 1,
-							borderRadius: 2,
-						}}
-						startIcon={<StartIcon size='small' />}
-					>
-						Продолжить
-					</Button>
+					<LoadingButton
+						icon={<StartIcon size='small' />}
+						label={'Продолжить'}
+						disable={!Cart.length}
+						onClick={tab => handleChange(tab, '2')}
+					/>
 				</TabPanel>
 
 				<TabPanel value='2' sx={{ p: 0, pt: 2 }}>

@@ -1,5 +1,3 @@
-import CheckIcon from '@mui/icons-material/Check'
-import { LoadingButton } from '@mui/lab'
 import {
 	Avatar,
 	Backdrop,
@@ -14,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import CircularLoadingComponent from '../components/CircularLoading.component'
 import CloseButtonComponent from '../components/CloseButton.component'
 import FormTextFieldComponent from '../components/FormTextField.component'
+import LoadingButton from '../components/LoadingButton.component'
+import NotFoundDataComponent from '../components/NotFoundData.component'
 import { createReview, getProductsForRate } from '../http/Orders.http'
 import { setRateModal, setSnackbarModal } from '../store/modals.store'
 import font from '../themes/font.theme'
@@ -28,6 +28,10 @@ const RateProductModal = () => {
 	const [hover, setHover] = useState(-1)
 	const [rate, setRate] = useState(5)
 	const [text, setText] = useState('')
+	const [fieldError, setFieldError] = useState({
+		status: false,
+		message: '',
+	})
 	const labels = {
 		1: 'Ужасно',
 		2: 'Плохо',
@@ -62,7 +66,7 @@ const RateProductModal = () => {
 				setLoading(false)
 			}
 		})
-	}, [dispatch, RateProductModalStatus])
+	}, [dispatch, RateProductModalStatus, loading])
 
 	const getLabelText = value => {
 		return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`
@@ -72,43 +76,61 @@ const RateProductModal = () => {
 		dispatch(setRateModal(false))
 	}
 
+	const validate = () => {
+		let errors = false
+
+		if (text.trim() === '') {
+			setFieldError({ status: true, message: '* Обязательное поле' })
+			errors = true
+		} else {
+			setFieldError({ status: false, message: '' })
+		}
+
+		return errors
+	}
+
 	const handleCreateReview = () => {
 		setLoading(true)
-		createReview(rates[0].id, rates[0].product.id, text, rate).then(res => {
-			if (!res) {
-				dispatch(
-					setSnackbarModal({
-						modal: true,
-						severity: 'error',
-						message: 'Непредвиденная ошибка, попробуйте позже',
-					})
-				)
-				setLoading(false)
-			} else if (res.status === 'error') {
-				dispatch(
-					setSnackbarModal({
-						modal: true,
-						severity: 'error',
-						message: res.data.message.join('\n'),
-					})
-				)
-				setLoading(false)
-			} else {
-				const newRates = rates
-				newRates.shift()
-				setRates(newRates || [])
-				setRate(5)
-				setText('')
-				setLoading(false)
-				dispatch(
-					setSnackbarModal({
-						modal: true,
-						severity: 'success',
-						message: 'Успешно',
-					})
-				)
-			}
-		})
+
+		const valid = validate()
+
+		if (!valid) {
+			createReview(rates[0].id, rates[0].product.id, text, rate).then(res => {
+				if (!res) {
+					dispatch(
+						setSnackbarModal({
+							modal: true,
+							severity: 'error',
+							message: 'Непредвиденная ошибка, попробуйте позже',
+						})
+					)
+					setLoading(false)
+				} else if (res.status === 'error') {
+					dispatch(
+						setSnackbarModal({
+							modal: true,
+							severity: 'error',
+							message: res.data.message.join('\n'),
+						})
+					)
+					setLoading(false)
+				} else {
+					const newRates = rates
+					newRates.shift()
+					setRates(newRates || [])
+					setRate(5)
+					setText('')
+					setLoading(false)
+					dispatch(
+						setSnackbarModal({
+							modal: true,
+							severity: 'success',
+							message: 'Успешно',
+						})
+					)
+				}
+			})
+		}
 	}
 
 	return (
@@ -127,6 +149,7 @@ const RateProductModal = () => {
 			<Box
 				sx={{
 					...modal,
+					zIndex: 7777777,
 					height: 'auto',
 					maxWidth: '600px',
 					minHeight: '200px',
@@ -148,21 +171,13 @@ const RateProductModal = () => {
 				<CloseButtonComponent handleClick={handleCloseCartModal} />
 
 				{loading ? (
-					<CircularLoadingComponent />
+					<CircularLoadingComponent sx={{ height: 168 }} />
 				) : rates.length === 0 ? (
-					<Box
-						sx={{
-							width: '100%',
-							fontSize: '20px',
-							color: 'rgb(120, 120, 120)',
-							height: '100%',
-							display: 'flex',
-							justifyContent: 'center',
-							alignItems: 'center',
-						}}
-					>
-						Все товары оценены, спасибо!
-					</Box>
+					<NotFoundDataComponent
+						sx={{ height: 168 }}
+						onClick={() => setLoading(!loading)}
+						label={'Все товары оценены, спасибо!'}
+					/>
 				) : (
 					<Box sx={{ width: '100%' }}>
 						<MobileStepper
@@ -218,7 +233,7 @@ const RateProductModal = () => {
 								}}
 							>
 								<FormTextFieldComponent
-									error={{ status: false }}
+									error={fieldError}
 									type={'text'}
 									label={''}
 									rows={2}
@@ -269,27 +284,12 @@ const RateProductModal = () => {
 											</Box>
 										)}
 									</Box>
-
 									<LoadingButton
-										disabled={rate > 0 ? false : true}
-										loading={loading}
-										disableElevation
-										variant={'contained'}
-										color='success'
+										disable={rate > 0 ? false : true}
+										label={'Отправить'}
 										onClick={handleCreateReview}
-										size='large'
-										sx={{
-											...font,
-											px: 2,
-											color: '#fff',
-											fontWeight: 750,
-											borderRadius: 2,
-											width: { es: '100%', xs: '100%', s: 'auto' },
-										}}
-										startIcon={<CheckIcon size='small' />}
-									>
-										Отправить
-									</LoadingButton>
+										size={'medium'}
+									/>
 								</Box>
 							</Box>
 						</Box>

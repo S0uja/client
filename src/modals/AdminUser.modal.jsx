@@ -133,7 +133,7 @@ const PersonalModal = props => {
 			}))
 		}
 
-		if (!new RegExp(/^7\d{10}$/).test(fields.number)) {
+		if (!/^[78]\d{10}$/.test(singIn.number)) {
 			setFieldsErrors(prevState => ({
 				...prevState,
 				number: { status: true, message: '* Некорректный номер телефона' },
