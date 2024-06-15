@@ -63,7 +63,7 @@ const FooterComponent = () => {
 					<Typography
 						sx={{ ...font, color: 'rgb(64,64,64)', fontSize: '16px' }}
 					>
-						FoodExpress
+						FoodShop
 					</Typography>
 				</Box>
 				<Typography color='inherit' sx={{ ...font, fontSize: 14 }}>

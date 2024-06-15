@@ -47,6 +47,7 @@ const Catalog = props => {
 	const dispatch = useDispatch()
 	const [loading, setLoading] = useState(true)
 	const [moreCategories, setMoreCategories] = useState(false)
+	const [moreManufacturers, setMoreManufacturers] = useState(false)
 	const navigate = useNavigate()
 
 	//ХУК ОТВЕЧАЮЩИЙ ЗА ПОИСК ТОВАРОВ
@@ -58,6 +59,8 @@ const Catalog = props => {
 			top: 0,
 			behavior: 'smooth',
 		})
+		setMoreCategories(false)
+		setMoreManufacturers(false)
 
 		const updateProducts = async () => {
 			if (!Search && !Category?.value && !Manufacturer?.value) {
@@ -233,37 +236,72 @@ const Catalog = props => {
 				</Box>
 			)}
 			{!loading && Products.length > 0 && (
-				<Box id='catalog' sx={{ minHeight: '50vh', pt: 0 }}>
-					<Box sx={{ display: 'flex', pl: 2, mb: 2, gap: 2, flexWrap: 'wrap' }}>
+				<Box sx={{ minHeight: '50vh', pt: 0 }}>
+					<Box
+						sx={{
+							display: 'flex',
+							pl: 2,
+							mb: 2,
+							gap: 2,
+							flexWrap: 'wrap',
+						}}
+					>
 						{!!Manufacturers.length && (
-							<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
-								Производители
-							</Typography>
+							<>
+								<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
+									Производители
+								</Typography>
+								<Box
+									sx={{
+										width: '100%',
+										boxSizing: 'border-box',
+										display: 'flex',
+										pr: 2,
+										mb: 2,
+										gap: 1,
+										flexWrap: 'wrap',
+									}}
+								>
+									{Manufacturers.map((manufacturer, index) => {
+										if (index > 8 && !moreManufacturers) {
+											return
+										}
+										return (
+											<Chip
+												key={index}
+												size='medium'
+												label={manufacturer.name}
+												variant='contained'
+												sx={{ cursor: 'pointer' }}
+												onClick={() =>
+													handleChangeManufacturer(
+														manufacturer.name,
+														manufacturer.id
+													)
+												}
+											/>
+										)
+									})}
+									{moreManufacturers === false ? (
+										<Chip
+											size='medium'
+											label={'Больше производителей ...'}
+											variant='contained'
+											sx={{ cursor: 'pointer' }}
+											onClick={() => setMoreManufacturers(true)}
+										/>
+									) : (
+										<Chip
+											size='medium'
+											label={'Свернуть производителей ...'}
+											variant='contained'
+											sx={{ cursor: 'pointer' }}
+											onClick={() => setMoreManufacturers(false)}
+										/>
+									)}
+								</Box>
+							</>
 						)}
-						<Box
-							sx={{
-								width: '100%',
-								boxSizing: 'border-box',
-								display: 'flex',
-								pr: 2,
-								mb: Manufacturers.length ? 2 : 0,
-								gap: 1,
-								flexWrap: 'wrap',
-							}}
-						>
-							{Manufacturers.map((manufacturer, index) => (
-								<Chip
-									key={index}
-									size='medium'
-									label={manufacturer.name}
-									variant='contained'
-									sx={{ cursor: 'pointer' }}
-									onClick={() =>
-										handleChangeManufacturer(manufacturer.name, manufacturer.id)
-									}
-								/>
-							))}
-						</Box>
 						<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
 							Все товары
 						</Typography>
@@ -285,7 +323,7 @@ const Catalog = props => {
 				</Box>
 			)}
 			{!loading && Collections.length > 0 && (
-				<Box id='catalog' sx={{ minHeight: '50vh' }}>
+				<Box sx={{ minHeight: '50vh' }}>
 					<Box sx={{ display: 'flex', pl: 2, mb: 2, gap: 2, flexWrap: 'wrap' }}>
 						<Typography sx={{ ...font, fontSize: '24px', width: '100%' }}>
 							Категории

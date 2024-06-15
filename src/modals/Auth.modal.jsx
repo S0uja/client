@@ -195,7 +195,7 @@ const AuthModal = () => {
 			}))
 		}
 
-		if (!/^[78]\d{10}$/.test(singIn.number)) {
+		if (!/^[78]\d{10}$/.test(singUp.number)) {
 			setsingUpErrors(prevState => ({
 				...prevState,
 				number: { status: true, message: '* Некорректный номер телефона' },

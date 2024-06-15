@@ -76,9 +76,9 @@ const ProfileModal = props => {
 	const updateUserInfo = event => {
 		let errors = false
 		if (
-			number === UserInfo.number &&
+			number === UserInfo?.number &&
 			fio === UserInfo?.fio &&
-			birthdate === UserInfo.birthdate
+			birthdate === UserInfo?.birthdate
 		)
 			return
 
@@ -90,7 +90,7 @@ const ProfileModal = props => {
 			errors = true
 		}
 
-		if (!/^[78]\d{10}$/.test(UserInfo.number)) {
+		if (!/^[78]\d{10}$/.test(UserInfo?.number)) {
 			setUpdateInfoErrors(prevState => ({
 				...prevState,
 				number: { status: true, message: '* Некорректный номер телефона' },
@@ -571,17 +571,17 @@ const ProfileModal = props => {
 							label={'Сохранить'}
 							onClick={updateUserInfo}
 							disable={
-								number === UserInfo.number &&
+								number === UserInfo?.number &&
 								fio === UserInfo?.fio &&
-								birthdate === UserInfo.birthdate
+								birthdate === UserInfo?.birthdate
 							}
 						/>
 						<LoadingButton
 							label={'Сбросить'}
 							disable={
-								number === UserInfo.number &&
+								number === UserInfo?.number &&
 								fio === UserInfo?.fio &&
-								birthdate === UserInfo.birthdate
+								birthdate === UserInfo?.birthdate
 							}
 							icon={<ClearIcon size='small' />}
 							onClick={handleResetUserInfo}

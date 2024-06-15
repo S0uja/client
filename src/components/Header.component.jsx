@@ -117,7 +117,7 @@ const Header = () => {
 				{/* <img src={logo} style={{overflow:'hidden',height:'30px',borderRadius:1}} /> */}
 				<FastfoodIcon size='large' sx={{ color: 'rgb(64,64,64)' }} />
 				<Typography sx={{ ...font, color: 'rgb(64,64,64)', fontSize: '20px' }}>
-					FoodExpress
+					FoodShop
 				</Typography>
 			</Box>
 

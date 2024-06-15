@@ -125,7 +125,7 @@ const Cart = () => {
 		<Box
 			sx={{
 				flexGrow: 1,
-				bgcolor: 'background.paper',
+				bgcolor: 'white',
 				borderRadius: 2,
 				p: 2,
 				boxSizing: 'border-box',
