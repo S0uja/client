@@ -18,7 +18,7 @@ const AdminReportsComponent = () => {
 		products: '',
 	})
 
-	console.log(startDate)
+	// console.log(startDate)
 
 	const handleChangeStartDate = (key, value) => {
 		setStartDate(prevState => ({

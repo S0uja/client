@@ -102,7 +102,7 @@ const ProfileModal = props => {
 			!new RegExp(/^([А-Яа-яЁё]+\s){1,2}[А-Яа-яЁё]+\s[А-Яа-яЁё]+$/).test(fio) ||
 			fio === ''
 		) {
-			console.log(fio)
+			// console.log(fio)
 			setUpdateInfoErrors(prevState => ({
 				...prevState,
 				fio: { status: true, message: '* Некорректный формат ФИО' },

@@ -6,7 +6,7 @@ import { $authHost } from './index.http'
 
 export const getUsers = async () => {
 	try {
-		console.log('TRY GET USERS')
+		// console.log('TRY GET USERS')
 
 		const { data } = await $authHost.get('api/user/admin/', { timeout: 6000 })
 
@@ -23,7 +23,7 @@ export const getUsers = async () => {
 
 export const createUser = async (number, password, fio, role, birthdate) => {
 	try {
-		console.log('TRY CREATE USER')
+		// console.log('TRY CREATE USER')
 
 		const formdata = new FormData()
 		formdata.append('number', number)
@@ -49,7 +49,7 @@ export const createUser = async (number, password, fio, role, birthdate) => {
 
 export const deleteUser = async id => {
 	try {
-		console.log('TRY DELETE USER')
+		// console.log('TRY DELETE USER')
 
 		const { data } = await $authHost.delete(`api/user/admin/${id}`, {
 			timeout: 6000,
@@ -68,7 +68,7 @@ export const deleteUser = async id => {
 
 export const getUser = async id => {
 	try {
-		console.log('TRY GET USER')
+		// console.log('TRY GET USER')
 
 		const { data } = await $authHost.get(`api/user/admin/${id}`, {
 			timeout: 6000,
@@ -87,7 +87,7 @@ export const getUser = async id => {
 
 export const updateUser = async (id, number, fio, role, birthdate) => {
 	try {
-		console.log('TRY UPDATE USER')
+		// console.log('TRY UPDATE USER')
 
 		const formdata = new FormData()
 		formdata.append('number', number)
@@ -114,7 +114,7 @@ export const updateUser = async (id, number, fio, role, birthdate) => {
 
 export const getProducts = async () => {
 	try {
-		console.log('TRY GET PRODUCTS')
+		// console.log('TRY GET PRODUCTS')
 
 		const { data } = await $authHost.get('api/product/', { timeout: 6000 })
 
@@ -131,7 +131,7 @@ export const getProducts = async () => {
 
 export const deleteProduct = async id => {
 	try {
-		console.log('TRY DELETE PRODUCTS')
+		// console.log('TRY DELETE PRODUCTS')
 
 		const { data } = await $authHost.delete(`api/product/${id}`, {
 			timeout: 6000,
@@ -162,7 +162,7 @@ export const createProduct = async (
 	images
 ) => {
 	try {
-		console.log('TRY CREATE PRODUCT')
+		// console.log('TRY CREATE PRODUCT')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -195,7 +195,7 @@ export const createProduct = async (
 
 export const getProduct = async id => {
 	try {
-		console.log('TRY GET PRODUCT')
+		// console.log('TRY GET PRODUCT')
 
 		const { data } = await $authHost.get(`api/product/${id}`, { timeout: 6000 })
 
@@ -225,8 +225,8 @@ export const updateProduct = async (
 	images
 ) => {
 	try {
-		console.log('TRY UPDATE PRODUCT')
-		console.log(images)
+		// console.log('TRY UPDATE PRODUCT')
+		// console.log(images)
 		const formdata = new FormData()
 		formdata.append('name', name)
 		formdata.append('price', price)
@@ -260,7 +260,7 @@ export const updateProduct = async (
 
 export const getManufacturers = async () => {
 	try {
-		console.log('TRY GET MANUFACTURER')
+		// console.log('TRY GET MANUFACTURER')
 
 		const { data } = await $authHost.get(`api/manufacturer/`, { timeout: 6000 })
 
@@ -283,7 +283,7 @@ export const updateManufacturer = async (
 	filename
 ) => {
 	try {
-		console.log('TRY UPDATE MANUFACTURER')
+		// console.log('TRY UPDATE MANUFACTURER')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -308,7 +308,7 @@ export const updateManufacturer = async (
 
 export const deleteManufacturer = async id => {
 	try {
-		console.log('TRY DELETE PRODUCT')
+		// console.log('TRY DELETE PRODUCT')
 
 		const { data } = await $authHost.delete(`api/manufacturer/${id}`, {
 			timeout: 6000,
@@ -332,7 +332,7 @@ export const createManufacturer = async (
 	filename
 ) => {
 	try {
-		console.log('TRY CREATE MANUFACTURER')
+		// console.log('TRY CREATE MANUFACTURER')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -357,7 +357,7 @@ export const createManufacturer = async (
 
 export const getManufacturer = async id => {
 	try {
-		console.log('TRY GET ONE MANUFACTURER')
+		// console.log('TRY GET ONE MANUFACTURER')
 
 		const { data } = await $authHost.get(`api/manufacturer/${id}`, {
 			timeout: 6000,
@@ -378,7 +378,7 @@ export const getManufacturer = async id => {
 
 export const getCategories = async () => {
 	try {
-		console.log('TRY GET CATEGORIES')
+		// console.log('TRY GET CATEGORIES')
 
 		const { data } = await $authHost.get(`api/category/`, { timeout: 6000 })
 
@@ -395,7 +395,7 @@ export const getCategories = async () => {
 
 export const updateCategory = async (id, name, parentId, filename) => {
 	try {
-		console.log('TRY UPDATE CATEGORY')
+		// console.log('TRY UPDATE CATEGORY')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -419,7 +419,7 @@ export const updateCategory = async (id, name, parentId, filename) => {
 
 export const deleteCategory = async id => {
 	try {
-		console.log('TRY DELETE CATEGORY')
+		// console.log('TRY DELETE CATEGORY')
 
 		const { data } = await $authHost.delete(`api/category/${id}`, {
 			timeout: 6000,
@@ -438,7 +438,7 @@ export const deleteCategory = async id => {
 
 export const createCategory = async (name, parentId, filename) => {
 	try {
-		console.log('TRY CREATE CATEGORY')
+		// console.log('TRY CREATE CATEGORY')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -462,7 +462,7 @@ export const createCategory = async (name, parentId, filename) => {
 
 export const getCategory = async id => {
 	try {
-		console.log('TRY GET ONE CATEGORY')
+		// console.log('TRY GET ONE CATEGORY')
 
 		const { data } = await $authHost.get(`api/category/${id}`, {
 			timeout: 6000,
@@ -483,7 +483,7 @@ export const getCategory = async id => {
 
 export const getCollections = async () => {
 	try {
-		console.log('TRY GET COLLECTIONS')
+		// console.log('TRY GET COLLECTIONS')
 
 		const { data } = await $authHost.get(`api/collection/`, { timeout: 6000 })
 
@@ -500,7 +500,7 @@ export const getCollections = async () => {
 
 export const updateCollection = async (id, name, visible, products) => {
 	try {
-		console.log('TRY UPDATE COLLECTION')
+		// console.log('TRY UPDATE COLLECTION')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -526,7 +526,7 @@ export const updateCollection = async (id, name, visible, products) => {
 
 export const deleteCollection = async id => {
 	try {
-		console.log('TRY DELETE COLLECTION')
+		// console.log('TRY DELETE COLLECTION')
 
 		const { data } = await $authHost.delete(`api/collection/${id}`, {
 			timeout: 6000,
@@ -545,7 +545,7 @@ export const deleteCollection = async id => {
 
 export const createCollection = async (name, visible, products) => {
 	try {
-		console.log('TRY CREATE COLLECTION')
+		// console.log('TRY CREATE COLLECTION')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -571,7 +571,7 @@ export const createCollection = async (name, visible, products) => {
 
 export const getCollection = async id => {
 	try {
-		console.log('TRY GET ONE COLLECTION')
+		// console.log('TRY GET ONE COLLECTION')
 
 		const { data } = await $authHost.get(`api/collection/${id}`, {
 			timeout: 6000,
@@ -592,7 +592,7 @@ export const getCollection = async id => {
 
 export const getOrders = async () => {
 	try {
-		console.log('TRY GET ORDERS')
+		// console.log('TRY GET ORDERS')
 
 		const { data } = await $authHost.get(`api/order/admin`, { timeout: 6000 })
 
@@ -616,7 +616,7 @@ export const updateOrder = async (
 	orderStatusId
 ) => {
 	try {
-		console.log('TRY UPDATE ORDER')
+		// console.log('TRY UPDATE ORDER')
 
 		const formdata = new FormData()
 		formdata.append('address', address)
@@ -647,7 +647,7 @@ export const updateOrder = async (
 
 export const deleteOrder = async id => {
 	try {
-		console.log('TRY DELETE ORDER')
+		// console.log('TRY DELETE ORDER')
 
 		const { data } = await $authHost.delete(`api/order/admin/${id}`, {
 			timeout: 6000,
@@ -672,7 +672,7 @@ export const createOrder = async (
 	orderStatusId
 ) => {
 	try {
-		console.log('TRY CREATE ORDER')
+		// console.log('TRY CREATE ORDER')
 
 		const formdata = new FormData()
 		formdata.append('address', address)
@@ -703,7 +703,7 @@ export const createOrder = async (
 
 export const getOrder = async id => {
 	try {
-		console.log('TRY GET ONE ORDER')
+		// console.log('TRY GET ONE ORDER')
 
 		const { data } = await $authHost.get(`api/order/admin/${id}`, {
 			timeout: 6000,
@@ -724,7 +724,7 @@ export const getOrder = async id => {
 
 export const getOrderStatuses = async () => {
 	try {
-		console.log('TRY GET ORDER STATUSES')
+		// console.log('TRY GET ORDER STATUSES')
 
 		const { data } = await $authHost.get(`api/orderStatus/`, { timeout: 6000 })
 
@@ -741,8 +741,8 @@ export const getOrderStatuses = async () => {
 
 export const updateOrderStatus = async (id, name) => {
 	try {
-		console.log('TRY UPDATE ORDER STATUS')
-		console.log(name)
+		// console.log('TRY UPDATE ORDER STATUS')
+		// console.log(name)
 		const formdata = new FormData()
 		formdata.append('name', name)
 
@@ -763,7 +763,7 @@ export const updateOrderStatus = async (id, name) => {
 
 export const deleteOrderStatus = async id => {
 	try {
-		console.log('TRY DELETE ORDER STATUS')
+		// console.log('TRY DELETE ORDER STATUS')
 
 		const { data } = await $authHost.delete(`api/orderStatus/${id}`, {
 			timeout: 6000,
@@ -782,7 +782,7 @@ export const deleteOrderStatus = async id => {
 
 export const createOrderStatus = async name => {
 	try {
-		console.log('TRY CREATE ORDER STATUS')
+		// console.log('TRY CREATE ORDER STATUS')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -804,7 +804,7 @@ export const createOrderStatus = async name => {
 
 export const getOrderStatus = async id => {
 	try {
-		console.log('TRY GET ONE ORDER STATUS')
+		// console.log('TRY GET ONE ORDER STATUS')
 
 		const { data } = await $authHost.get(`api/orderStatus/${id}`, {
 			timeout: 6000,
@@ -825,7 +825,7 @@ export const getOrderStatus = async id => {
 
 export const getMetrica = async () => {
 	try {
-		console.log('TRY GET YAMETRICA')
+		// console.log('TRY GET YAMETRICA')
 
 		const { data } = await axios({
 			url: 'https://api-metrika.yandex.net/stat/v1/data?metrics=ym:s:visits,ym:s:users,ym:s:pageviews,ym:s:avgVisitDurationSeconds&id=96799784',
@@ -849,7 +849,7 @@ export const getMetrica = async () => {
 
 export const getMounthOrdersCount = async () => {
 	try {
-		console.log('TRY GET ORDERS COUNT')
+		// console.log('TRY GET ORDERS COUNT')
 
 		const { data } = await $authHost.get(`api/statistic/orders`, {
 			timeout: 6000,
@@ -868,7 +868,7 @@ export const getMounthOrdersCount = async () => {
 
 export const getMounthEarn = async () => {
 	try {
-		console.log('TRY GET EARN COUNT')
+		// console.log('TRY GET EARN COUNT')
 
 		const { data } = await $authHost.get(`api/statistic/earn`, {
 			timeout: 6000,
@@ -887,7 +887,7 @@ export const getMounthEarn = async () => {
 
 export const getLogs = async () => {
 	try {
-		console.log('TRY GET LOGS')
+		// console.log('TRY GET LOGS')
 
 		const { data } = await $authHost.get(`api/statistic/logs`, {
 			timeout: 6000,
@@ -908,7 +908,7 @@ export const getLogs = async () => {
 
 export const getProfit = async (startDate, endDate) => {
 	try {
-		console.log(`TRY GET PROFIT REPORT ${startDate} ${endDate}`)
+		// console.log(`TRY GET PROFIT REPORT ${startDate} ${endDate}`)
 
 		const { data } = await $authHost.get(`api/report/profit`, {
 			params: {
@@ -934,7 +934,7 @@ export const getProfit = async (startDate, endDate) => {
 
 export const getBrands = async () => {
 	try {
-		console.log('TRY GET BRANDS')
+		// console.log('TRY GET BRANDS')
 
 		const { data } = await $authHost.get(`api/brand/`, { timeout: 6000 })
 
@@ -951,7 +951,7 @@ export const getBrands = async () => {
 
 export const updateBrand = async (id, name, manufacturerId, filename) => {
 	try {
-		console.log('TRY UPDATE BRAND')
+		// console.log('TRY UPDATE BRAND')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -975,7 +975,7 @@ export const updateBrand = async (id, name, manufacturerId, filename) => {
 
 export const deleteBrand = async id => {
 	try {
-		console.log('TRY DELETE BRAND')
+		// console.log('TRY DELETE BRAND')
 
 		const { data } = await $authHost.delete(`api/brand/${id}`, {
 			timeout: 6000,
@@ -994,7 +994,7 @@ export const deleteBrand = async id => {
 
 export const createBrand = async (name, manufacturerId, filename) => {
 	try {
-		console.log('TRY CREATE BRAND')
+		// console.log('TRY CREATE BRAND')
 
 		const formdata = new FormData()
 		formdata.append('name', name)
@@ -1018,7 +1018,7 @@ export const createBrand = async (name, manufacturerId, filename) => {
 
 export const getBrand = async id => {
 	try {
-		console.log('TRY GET ONE BRAND')
+		// console.log('TRY GET ONE BRAND')
 
 		const { data } = await $authHost.get(`api/brand/${id}`, {
 			timeout: 6000,
@@ -1039,7 +1039,7 @@ export const getBrand = async id => {
 
 export const makeSql = async sql => {
 	try {
-		console.log('TRY MAKE SQL REQUEST')
+		// console.log('TRY MAKE SQL REQUEST')
 
 		const formdata = new FormData()
 		formdata.append('sql', sql)

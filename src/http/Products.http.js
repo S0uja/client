@@ -8,7 +8,7 @@ export const getAllProducts = async (
 	sort
 ) => {
 	try {
-		console.log('TRY GET PRODUCTS')
+		// console.log('TRY GET PRODUCTS')
 		const { data } = await $host.get('api/product/page', {
 			params: {
 				page: page,
@@ -32,7 +32,7 @@ export const getAllProducts = async (
 
 export const getOneProduct = async id => {
 	try {
-		console.log('try GET ONE PRODUCT')
+		// console.log('try GET ONE PRODUCT')
 		const { data } = await $host.get(`api/product/${id}`)
 
 		return { status: data.status, data: data.body }
@@ -48,7 +48,7 @@ export const getOneProduct = async id => {
 
 export const getMainPage = async () => {
 	try {
-		console.log('try GET MAIN PAGE')
+		// console.log('try GET MAIN PAGE')
 		const { data } = await $host.get(`api/product/mp`)
 
 		return { status: data.status, data: data.body }

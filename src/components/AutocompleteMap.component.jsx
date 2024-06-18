@@ -28,7 +28,8 @@ const AutocompleteMap = props => {
 		if (!options.length && Addresses.length > 0) {
 			setOptions(Addresses)
 		}
-	}, [Addresses, options.length])
+		// console.log(options)
+	}, [Addresses, options])
 
 	const filterOptions = options => {
 		const uniqueOptions = []
@@ -143,6 +144,7 @@ const AutocompleteMap = props => {
 				loadingText='Поиск...'
 				value={props.address}
 				autoSelect={options.length > 0 && true}
+				filterOptions={x => x}
 				sx={{ ...font, borderRadius: 4 }}
 				options={options.map(option => option.displayName)}
 				clearText='Очистить'
@@ -171,9 +173,6 @@ const AutocompleteMap = props => {
 						}}
 						error={props.errors.status}
 						helperText={props.errors.message}
-						autoComplete
-						includeInputInList
-						filterSelectedOptions
 						label='Адрес доставки'
 						InputProps={{
 							...params.InputProps,
@@ -184,9 +183,9 @@ const AutocompleteMap = props => {
 							},
 							endAdornment: (
 								<>
-									{loading ? (
+									{loading === true && (
 										<CircularProgress sx={{ color: '#787878' }} size={20} />
-									) : null}
+									)}
 									{params.InputProps.endAdornment}
 								</>
 							),

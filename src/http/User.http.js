@@ -61,7 +61,7 @@ export const userLogin = async (number, password) => {
 
 export const userCheck = async () => {
 	try {
-		console.log('TRY AUTH')
+		// console.log('TRY AUTH')
 		const { data } = await $authHost.get('api/user/auth', { timeout: 6000 })
 		if (data.status === 'error') {
 			return { status: 'error', data: data.body }

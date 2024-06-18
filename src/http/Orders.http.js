@@ -2,7 +2,7 @@ import { $authHost } from './index.http'
 
 export const getAllOrders = async () => {
 	try {
-		console.log('TRY GET ALL ORDERS')
+		// console.log('TRY GET ALL ORDERS')
 		const { data } = await $authHost.get('api/order/user', { timeout: 6000 })
 		if (data.status === 'error') {
 			return { status: 'error', data: data.body }
@@ -45,7 +45,7 @@ export const createOrder = async (address, products, price) => {
 
 export const getProductsForRate = async () => {
 	try {
-		console.log('TRY GET PRODUCTS FOR RATE')
+		// console.log('TRY GET PRODUCTS FOR RATE')
 		const { data } = await $authHost.get('api/order/user/rate', {
 			timeout: 6000,
 		})
@@ -65,7 +65,7 @@ export const getProductsForRate = async () => {
 
 export const createReview = async (orderProductId, productId, text, rate) => {
 	try {
-		console.log('TRY CREATE RATE')
+		// console.log('TRY CREATE RATE')
 		const formdata = new FormData()
 
 		formdata.append('orderProductId', orderProductId)

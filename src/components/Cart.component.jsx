@@ -114,8 +114,8 @@ const Cart = () => {
 						})
 					)
 					dispatch(setCart(CartNotAvailable))
+					dispatch(setOrders([res.data.data[0], ...Orders]))
 					setTab('1')
-					dispatch(setOrders([...Orders, res.data.data[0]]))
 				}
 			})
 			.catch(console.error)
@@ -455,7 +455,7 @@ const Cart = () => {
 						label={'Оформить'}
 						disable={!Cart.length}
 						onClick={() => {
-							if (!UserInfo.role) {
+							if (!UserInfo?.role) {
 								return dispatch(setAuthModal(true))
 							}
 							handleCreateOrder()

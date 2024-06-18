@@ -2,7 +2,7 @@ import { $host } from './index.http'
 
 export const getAllManufacturers = async () => {
 	try {
-		console.log('TRY GET MANUFACTURERS')
+		// console.log('TRY GET MANUFACTURERS')
 
 		const { data } = await $host.get('api/manufacturer')
 
@@ -19,7 +19,7 @@ export const getAllManufacturers = async () => {
 
 export const getOneManufacturer = async id => {
 	try {
-		console.log('TRY GET ONE MANUFACTURER')
+		// console.log('TRY GET ONE MANUFACTURER')
 		const { data } = await $host.get(`api/manufacturer/${id}`)
 
 		return { status: data.status, data: data.body }

@@ -4,7 +4,7 @@ const ChangeUrlParams = (
 	Category = null,
 	Manufacturer = null
 ) => {
-	console.log('CHANGE URL')
+	// console.log('CHANGE URL')
 
 	const params = new URLSearchParams()
 	params.append('page', Page)

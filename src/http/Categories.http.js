@@ -2,7 +2,7 @@ import { $host } from "./index.http"
 
 export const getAllCategories = async () => {
     try {
-        console.log('TRY GET CATEGORIES');
+        // console.log('TRY GET CATEGORIES');
 
         const {data} = await $host.get('api/category')
         
@@ -17,7 +17,7 @@ export const getAllCategories = async () => {
 
 export const getOneCategory = async (id) => {
     try {
-        console.log('TRY GET ONE CATEGORIY');
+        // console.log('TRY GET ONE CATEGORIY');
         const {data} = await $host.get(`api/category/${id}`)
         
         return {status: data.status, data:data.body}
